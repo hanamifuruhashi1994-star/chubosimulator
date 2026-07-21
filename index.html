@@ -1,0 +1,3066 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<meta name="supported-color-schemes" content="light">
+<meta name="theme-color" content="#f4f2ea">
+<meta name="robots" content="index,follow,max-image-preview:large">
+
+<!-- ============================================================
+     ▼▼▼ 公開前に必ず置換 ▼▼▼
+     下の your-domain.example を実際のドメインに書き換えてください。
+     canonical が例示ドメインのままだと、インデックスされません。
+     ============================================================ -->
+<title>厨房機器の費用シミュレーション｜業態・席数から必要機器を無料診断</title>
+<meta name="description" content="ラーメン・カフェ・居酒屋など業態と席数を選ぶだけで、必要な厨房機器一覧と新品／中古の概算費用がわかる無料ツール「ちゅーぼーシミュレーター」。実際の厨房設計図面4件の実測値（ガス容量・三相200V・機器の床面積）も公開しています。※旧表記：ちゅーぼーシュミレーター">
+<link rel="canonical" href="https://your-domain.example/">
+
+<meta property="og:title" content="厨房機器の費用シミュレーション｜ちゅーぼーシミュレーター">
+<meta property="og:description" content="業態と席数を入力するだけで、必要な厨房機器と新品・中古の概算費用がわかる無料診断ツール。実測した設計図面4件のデータ付き。">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://your-domain.example/images/ogp.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://your-domain.example/">
+<meta property="og:site_name" content="ちゅーぼーシミュレーター">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://your-domain.example/images/ogp.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+
+<!-- ▼ Yahoo!ショッピング用：バリューコマース LinkSwitch
+     バリューコマースに登録 →「Yahoo!ショッピング」と提携 → LinkSwitchを利用開始 で
+     発行されるタグをそのまま貼り、下の vc_pid を自分のIDに書き換えてコメントを外してください。
+     ページ内の shopping.yahoo.co.jp への通常リンクが自動でアフィリエイトリンクに変換されます。
+<script type="text/javascript">var vc_pid = "＜あなたのvc_pid＞";</script>
+<script type="text/javascript" src="//aml.valuecommerce.com/vcdal.js" async></script>
+▲ ここまで -->
+<style>
+:root{
+  color-scheme: light;
+  --bg:#f4f2ea;
+  --paper:#fffefb;
+  --ink:#191713;
+  --sub:#4a463c;
+  --steel:#5b6b74;
+  --flame:#2f6f9e;
+  --noren:#a8362a;
+  --noren-dark:#7c2620;
+  --line:#ded8c8;
+  --ok:#3d6e4a;
+  --price:#b8342a;
+}
+/* ダークモード時もサイトの配色を維持する（文字が黒背景に沈むのを防止） */
+@media (prefers-color-scheme: dark){
+  :root{
+    color-scheme: light;
+    --bg:#f4f2ea;
+    --paper:#fffefb;
+    --ink:#191713;
+    --sub:#4a463c;
+    --line:#ded8c8;
+  }
+}
+*{box-sizing:border-box}
+html{background:#f4f2ea}
+body{
+  margin:0;
+  background:#f4f2ea;
+  color:#191713;
+  font-family:'Noto Sans JP',sans-serif;
+  line-height:1.8;
+  -webkit-text-fill-color:currentColor;
+  forced-color-adjust:none;
+}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:'Shippori Mincho',serif;font-weight:800;letter-spacing:.02em;margin:0;color:var(--ink)}
+p,li,label,span,div,small{color:inherit}
+a{color:var(--flame)}
+
+header.top{
+  border-bottom:1px solid var(--line);
+  padding:14px 0;
+  background:var(--paper);
+}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between}
+.brand{font-family:'Shippori Mincho',serif;font-weight:800;font-size:16px;color:var(--ink);letter-spacing:.01em}
+.brand span{color:var(--noren)}
+
+/* ---- ヒーロー ---- */
+.hero{
+  background:linear-gradient(180deg,#fffefb 0%,#f7f5ee 62%,#f4f2ea 100%);
+  border-bottom:1px solid var(--line);
+  padding:44px 0 36px;
+}
+.hero-inner{max-width:760px;margin:0 auto;padding:0 20px;text-align:center}
+.hero .eyebrow{
+  display:inline-block;font-size:13px;color:#fff;background:var(--noren);
+  padding:4px 14px;border-radius:2px;letter-spacing:.12em;margin-bottom:18px;
+  -webkit-text-fill-color:#fff;
+}
+.hero h1{font-size:32px;line-height:1.5;color:var(--ink)}
+.hero p.lead{color:var(--sub);font-size:15px;margin:16px auto 0;max-width:560px}
+.hero h1 em{font-style:normal;border-bottom:3px solid var(--noren);padding-bottom:1px}
+.hero-copy{
+  font-family:'Shippori Mincho',serif;font-weight:800;
+  font-size:26px;line-height:1.5;color:var(--ink);
+  margin:14px 0 0;letter-spacing:.02em;
+}
+.hero-illust{
+  display:block;width:100%;max-width:420px;height:auto;margin:6px auto 18px;
+  color:var(--steel);
+}
+.hero-illust .ac{color:var(--noren)}
+
+.ticket-note{
+  margin:24px auto 0;max-width:520px;
+  border:1px solid var(--line);
+  background:var(--paper);
+  padding:14px 18px;
+  font-size:13px;
+  color:var(--sub);
+  display:flex;gap:10px;align-items:flex-start;text-align:left;
+}
+.ticket-note b{color:var(--ink)}
+
+section{padding:32px 0;background:var(--bg)}
+.card{
+  background:var(--paper);
+  border:1px solid var(--line);
+  padding:28px 26px;
+}
+.field{margin-bottom:22px}
+.field label{display:block;font-size:13px;color:var(--sub);margin-bottom:8px;font-weight:500}
+.field .hint{font-size:12px;color:var(--sub);margin-top:6px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+select,input[type=number],input[type=text],input[type=tel],input[type=email]{
+  width:100%;
+  padding:11px 12px;
+  border:1px solid var(--line);
+  background:#fff;
+  font-family:'Noto Sans JP',sans-serif;
+  font-size:15px;
+  color:var(--ink);
+  -webkit-text-fill-color:var(--ink);
+  border-radius:2px;
+}
+select:disabled{background:#eeebe2;color:#8d8778;-webkit-text-fill-color:#8d8778}
+select:focus,input:focus{outline:2px solid var(--flame);outline-offset:1px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{
+  display:flex;align-items:center;gap:6px;
+  border:1px solid var(--line);
+  padding:9px 14px;font-size:14px;
+  background:#fff;cursor:pointer;color:var(--ink);
+}
+.chip input{margin:0}
+
+/* ---- ステップ表示 ---- */
+.stepbar{margin-bottom:24px}
+.stepbar .meta{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;color:var(--sub);margin-bottom:8px}
+.stepbar .meta .no{font-family:'Shippori Mincho',serif;font-weight:800;font-size:14px;color:var(--noren);letter-spacing:.08em}
+.bar{height:4px;background:var(--line)}
+.bar > i{display:block;height:100%;background:var(--noren);transition:width .25s ease}
+.step-head{display:grid;grid-template-columns:52px 1fr;gap:12px;align-items:center;margin-bottom:18px}
+.step-icon{width:52px;height:52px;border:1px solid var(--line);background:#faf8f1;padding:6px;color:var(--steel)}
+.step-icon svg{width:100%;height:100%;display:block}
+.step-title{font-family:'Shippori Mincho',serif;font-weight:800;font-size:20px;margin:0 0 2px;color:var(--ink)}
+.step-lead{font-size:13px;color:var(--sub);margin:0}
+.nav-row{display:grid;grid-template-columns:110px 1fr;gap:12px;margin-top:26px}
+.nav-row.single{grid-template-columns:1fr}
+
+/* ---- 広告枠 ---- */
+.ad-slot{
+  border:1px dashed var(--line);
+  background:#fff;
+  color:#a39c8c;
+  font-size:11px;
+  letter-spacing:.16em;
+  text-align:center;
+  padding:22px 10px;
+  margin:24px 0 0;
+}
+
+.btn{
+  display:inline-block;width:100%;text-align:center;
+  background:var(--noren);color:#fff;border:none;
+  font-family:'Shippori Mincho',serif;font-weight:800;font-size:17px;
+  letter-spacing:.08em;
+  padding:16px 20px;cursor:pointer;
+  transition:background .15s ease;
+  text-decoration:none;
+  -webkit-text-fill-color:#fff;
+}
+.btn:hover{background:var(--noren-dark)}
+.btn.ghost{
+  background:transparent;color:var(--ink);border:1px solid var(--line);
+  font-family:'Noto Sans JP',sans-serif;font-weight:500;font-size:14px;
+  letter-spacing:normal;padding:12px 16px;
+  -webkit-text-fill-color:var(--ink);
+}
+.btn.ghost:hover{background:var(--bg)}
+
+.result-head{text-align:center;margin-bottom:26px}
+.result-head .tag{font-size:13px;color:var(--sub)}
+.result-head h2{font-size:26px;margin-top:6px}
+
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:26px}
+.stat{border:1px solid var(--line);background:#fff;padding:16px;text-align:center}
+.stat .l{font-size:12px;color:var(--sub);margin-bottom:6px}
+.stat .v{font-family:'Shippori Mincho',serif;font-weight:800;font-size:22px}
+.stat.save{background:#eef4ef;border-color:#c7dccb}
+.stat.save .v{color:var(--ok)}
+
+.budget-note{font-size:13px;padding:10px 14px;border-left:3px solid var(--flame);background:#eef3f6;margin-bottom:22px}
+.budget-note.over{border-color:var(--noren);background:#f7ecea}
+
+/* ---- 機器カード ---- */
+.kk-list{border-top:1px solid var(--line)}
+.kk-item{
+  display:grid;grid-template-columns:1fr 240px;gap:16px;
+  padding:16px 0;border-bottom:1px solid var(--line);
+}
+.kk-main{display:grid;grid-template-columns:64px 1fr;gap:12px;align-items:start}
+.kk-name{font-weight:700;font-size:15px}
+.kk-name .qty{font-size:12px;color:var(--sub);font-weight:400;margin-left:6px}
+.kk-spec{font-size:12px;color:var(--sub);margin-top:2px}
+.kk-note{font-size:12px;color:var(--sub);margin-top:6px;padding-left:10px;border-left:2px solid var(--line)}
+.kk-price{border-left:1px solid var(--line);padding-left:16px}
+.kk-line{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.kk-line .l{font-size:11px;color:var(--sub);white-space:nowrap}
+.kk-line .v{font-family:'Shippori Mincho',serif;font-weight:800;font-size:19px;color:var(--price)}
+.kk-total{
+  display:grid;grid-template-columns:1fr 240px;gap:16px;
+  padding:16px 0;border-bottom:2px solid var(--ink);
+  background:#fff;
+}
+.kk-total .t{font-family:'Shippori Mincho',serif;font-weight:800;font-size:16px;padding-left:12px}
+.kk-total .kk-price{border-left:1px solid var(--line)}
+.kk-total .kk-line .v{font-size:22px}
+.opt-note{font-size:13px;color:var(--sub);margin-top:14px}
+.opt-note b{color:var(--ink)}
+
+/* ---- 機器サムネイル ---- */
+.eq-thumb{
+  display:block;width:64px;height:64px;flex:0 0 64px;
+  border:1px solid var(--line);background:#faf8f1;padding:7px;
+  color:var(--steel);
+}
+.eq-thumb svg{width:100%;height:100%;display:block}
+.eq-thumb .ac{color:var(--noren)}
+
+/* ==== サイト別 合計比較 ==== */
+.site-summary{
+  border:1px solid var(--line);
+  background:#fff;
+  padding:16px 16px 12px;
+  margin-bottom:18px;
+}
+.site-summary .ss-head{
+  display:flex;justify-content:space-between;align-items:baseline;
+  font-size:12px;color:var(--sub);margin-bottom:12px;
+}
+.site-summary .ss-head b{font-family:'Shippori Mincho',serif;font-size:14px;color:var(--ink)}
+.ss-row{
+  display:grid;grid-template-columns:96px 1fr 84px;
+  align-items:center;gap:10px;
+  padding:6px 0;
+}
+.ss-row .ss-name{font-size:13px;font-weight:700}
+.ss-row .ss-name i{display:block;font-style:normal;font-size:11px;color:var(--sub);font-weight:400}
+.ss-track{height:12px;background:#efece1;border:1px solid var(--line)}
+.ss-track > i{display:block;height:100%;background:#b3ab94}
+.ss-row.best .ss-track > i{background:var(--noren)}
+.ss-val{
+  font-family:'Shippori Mincho',serif;font-weight:800;font-size:15px;
+  text-align:right;color:var(--sub);
+}
+.ss-row.best .ss-val{color:var(--price);font-size:17px}
+.ss-foot{font-size:12px;color:var(--sub);margin-top:8px;border-top:1px dashed var(--line);padding-top:8px}
+
+/* ==== 機器ごとの価格比較 ==== */
+.eq-card{
+  border:1px solid var(--line);
+  background:#fff;
+  padding:14px;
+  margin-bottom:10px;
+}
+.eq-top{display:grid;grid-template-columns:64px 1fr;gap:12px;align-items:start}
+.eq-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.eq-head .eq-title{font-weight:700;font-size:15px}
+.eq-head .eq-title .qty{font-size:12px;color:var(--sub);font-weight:400;margin-left:6px}
+.eq-head .eq-meta{font-size:12px;color:var(--sub);text-align:right;white-space:nowrap}
+.eq-head .eq-meta s{opacity:.8}
+.eq-shops{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px;
+}
+.eq-shop{
+  display:block;position:relative;
+  border:1px solid var(--line);border-radius:3px;
+  padding:10px 6px 9px;text-align:center;text-decoration:none;color:var(--ink);
+  background:#fff;
+  transition:border-color .15s ease, background .15s ease;
+}
+.eq-shop:hover{border-color:var(--flame);background:#fff}
+.eq-shop .s-name{font-size:12px;color:var(--sub);line-height:1.4;font-weight:500}
+.eq-shop .s-price{
+  font-family:'Shippori Mincho',serif;font-weight:800;font-size:17px;
+  color:var(--ink);line-height:1.4;margin-top:3px;
+}
+.eq-shop .s-stock{font-size:11px;color:var(--sub);line-height:1.4;margin-top:3px}
+.eq-shop.best{border-color:var(--noren);background:#fbf3f1}
+.eq-shop.best .s-price{color:var(--price);font-size:18px}
+.eq-shop .s-flag{
+  position:absolute;top:-1px;left:-1px;
+  background:var(--noren);color:#fff;
+  font-size:10px;letter-spacing:.06em;padding:1px 6px;
+  -webkit-text-fill-color:#fff;
+}
+.eq-shop .s-diff{font-size:11px;color:#6f6a5c;line-height:1.4;margin-top:2px}
+.eq-note{font-size:12px;color:var(--sub);margin-top:10px;padding-left:10px;border-left:2px solid var(--line)}
+.thumb-note{font-size:12px;color:var(--sub);margin:0 0 12px}
+
+/* ==== 近隣テナント情報 横スライド ==== */
+.slider-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:26px 0 10px}
+.slider-head .sh-left{display:flex;align-items:baseline;gap:8px}
+.slider-head .no{font-family:'Shippori Mincho',serif;font-weight:800;color:var(--noren);font-size:15px}
+.slider-head .t{font-family:'Shippori Mincho',serif;font-weight:800;font-size:16px;margin:0}
+.slider-nav{display:flex;gap:6px}
+.slider-nav button{
+  width:30px;height:30px;border:1px solid var(--line);background:#fff;
+  color:var(--sub);cursor:pointer;font-size:13px;line-height:1;border-radius:2px;
+}
+.slider-nav button:hover{border-color:var(--noren);color:var(--noren)}
+.slider{
+  display:flex;gap:12px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;
+  padding:2px 2px 12px;
+  margin:0 -2px;
+}
+.slider::-webkit-scrollbar{height:6px}
+.slider::-webkit-scrollbar-track{background:var(--line)}
+.slider::-webkit-scrollbar-thumb{background:#b5ad99}
+.t-card{
+  flex:0 0 264px;scroll-snap-align:start;
+  border:1px solid var(--line);background:#fff;
+  padding:14px;display:flex;flex-direction:column;
+}
+.t-card .t-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}
+.t-tag{font-size:11px;padding:2px 7px;border:1px solid var(--line);color:var(--sub);background:#faf8f1}
+.t-tag.inuki{border-color:var(--noren);color:var(--noren);background:#fbf3f1}
+.t-tag.skel{border-color:var(--steel);color:var(--steel);background:#eef2f4}
+.t-card .t-station{font-size:12px;color:var(--sub)}
+.t-card .t-rent{
+  font-family:'Shippori Mincho',serif;font-weight:800;font-size:22px;color:var(--price);
+  line-height:1.4;margin:2px 0 8px;
+}
+.t-card .t-rent small{font-size:11px;color:var(--sub);font-weight:500;font-family:'Noto Sans JP',sans-serif;margin-left:4px}
+.t-spec{border-top:1px solid var(--line);font-size:12px}
+.t-spec div{display:flex;justify-content:space-between;gap:8px;padding:5px 0;border-bottom:1px dashed var(--line)}
+.t-spec .k{color:var(--sub);white-space:nowrap}
+.t-spec .v{text-align:right;font-weight:500}
+.t-fit{font-size:12px;margin-top:9px;padding:7px 9px;line-height:1.6}
+.t-fit.ok{background:#eef4ef;color:var(--ok);border:1px solid #c7dccb}
+.t-fit.ng{background:#f7ecea;color:var(--noren-dark);border:1px solid #e2c3bd}
+.t-card .t-cta{margin-top:auto;padding-top:10px}
+.t-card .t-cta a{
+  display:block;text-align:center;background:var(--flame);color:#fff;
+  font-size:13px;padding:9px;text-decoration:none;border-radius:3px;
+  -webkit-text-fill-color:#fff;
+}
+.t-card .t-cta a:hover{opacity:.88}
+.slider-foot{font-size:12px;color:var(--sub);margin-top:2px}
+
+.disclaimer{font-size:12px;color:var(--sub);border-top:1px solid var(--line);margin-top:24px;padding-top:14px}
+
+/* ==== グローバルナビ ==== */
+.gnav{display:flex;align-items:center;gap:18px;font-size:13px}
+.gnav a{color:var(--sub);text-decoration:none;padding:2px 0;border-bottom:2px solid transparent}
+.gnav a:hover{color:var(--ink)}
+.gnav a[aria-current="page"]{color:var(--ink);font-weight:700;border-bottom-color:var(--noren)}
+a.brand{text-decoration:none}
+
+/* ==== アコーディオン（読む量を畳む） ==== */
+.acc{border-top:1px solid var(--line)}
+.acc details{border-bottom:1px solid var(--line)}
+.acc summary{
+  list-style:none;cursor:pointer;padding:14px 34px 14px 2px;position:relative;
+  font-size:15px;font-weight:700;color:var(--ink);line-height:1.6;
+}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary::after{
+  content:"＋";position:absolute;right:6px;top:50%;transform:translateY(-50%);
+  color:var(--noren);font-weight:700;
+}
+.acc details[open] summary::after{content:"−"}
+.acc .acc-body{padding:0 2px 18px;font-size:14px;color:var(--sub);line-height:1.9}
+.acc .acc-body p{font-size:14px;margin:0 0 10px}
+.acc .acc-body p:last-child{margin-bottom:0}
+
+/* ==== コラムカード ==== */
+.col-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.col-card{
+  display:block;text-decoration:none;color:inherit;
+  border:1px solid var(--line);background:var(--paper);padding:16px 16px 14px;
+  transition:border-color .15s ease;
+}
+.col-card:hover{border-color:var(--noren)}
+.col-card .new-badge{background:var(--noren);margin-left:6px}
+.col-card .cat{
+  display:inline-block;font-size:11px;letter-spacing:.08em;color:#fff;background:var(--steel);
+  padding:2px 8px;border-radius:2px;margin-bottom:8px;-webkit-text-fill-color:#fff;
+}
+.col-card .ct{font-family:'Shippori Mincho',serif;font-weight:800;font-size:15px;line-height:1.6;color:var(--ink);margin:0}
+.col-card .cd{font-size:12px;color:var(--sub);margin:6px 0 0;line-height:1.7}
+.col-empty{border:1px dashed var(--line);background:#fff;color:#a39c8c;font-size:12px;text-align:center;padding:22px 10px}
+.more-link{
+  display:inline-flex;align-items:center;gap:6px;margin-top:14px;
+  font-size:13px;font-weight:700;color:var(--flame);text-decoration:none;
+}
+.more-link:hover{text-decoration:underline}
+
+/* ==== 静的コンテンツ（実測リファレンス／FAQ）==== */
+#ref-static h2{font-size:22px;line-height:1.5;margin-bottom:8px}
+#ref-static h3{font-size:17px;margin:30px 0 10px}
+#ref-static h4{font-family:'Noto Sans JP',sans-serif;font-size:14px;font-weight:700;margin:16px 0 4px;color:var(--ink)}
+#ref-static p{font-size:14px;color:var(--sub);margin:0;line-height:1.9}
+#ref-static .checklist{font-size:14px}
+#ref-static .checklist li{padding-top:10px;padding-bottom:10px}
+#ref-static .ref-table th,#ref-static .ref-table td{padding:8px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+#ref-static .ref-table thead th{font-size:11px;color:var(--sub);border-bottom:1px solid var(--ink);white-space:nowrap}
+#ref-static .ref-table small{font-size:11px;color:var(--sub)}
+#ref-static .ref-table tbody tr:nth-child(odd){background:#faf8f1}
+
+.sec-title{display:flex;align-items:baseline;gap:8px;margin:26px 0 12px}
+.sec-title .no{font-family:'Shippori Mincho',serif;font-weight:800;color:var(--noren);font-size:15px}
+.sec-title .t{font-family:'Shippori Mincho',serif;font-weight:800;font-size:16px;margin:0}
+.reason{font-size:12px;color:var(--sub);margin-top:2px}
+.checklist{list-style:none;padding:0;margin:0;font-size:13px}
+.checklist li{padding:8px 0;border-bottom:1px solid var(--line);padding-left:18px;position:relative}
+.checklist li::before{content:"・";position:absolute;left:0;color:var(--noren)}
+.feasible-banner{padding:14px 16px;font-size:14px;border:1px solid var(--ok);background:#eef4ef;color:var(--ok);margin-bottom:6px}
+.feasible-banner.fail{border-color:var(--noren);background:#f7ecea;color:var(--noren-dark)}
+.calc-breakdown{font-size:12px;color:var(--sub);margin-bottom:14px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.calc-breakdown b{color:var(--ink)}
+.calc-breakdown .arrow{color:var(--noren)}
+.layout-cta{border:1px solid var(--noren);background:#fbf3f1;padding:16px;font-size:13px;margin-top:10px}
+
+/* ==== 設備条件（ガス種・容量／電気）の入力 ==== */
+.cap-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cap-row input[type=number]{flex:0 1 160px;width:160px}
+.cap-row .unit{font-size:14px;color:var(--sub);font-weight:500}
+.cap-row.sub{
+  margin:8px 0 14px 14px;padding-left:14px;border-left:2px solid var(--line);
+}
+.cap-row.sub[hidden]{display:none}
+.elec-group{display:flex;flex-direction:column;align-items:flex-start;gap:0}
+.elec-group > .chip{margin-top:2px}
+.cap-row input:disabled{background:#eeebe2;color:#8d8778;-webkit-text-fill-color:#8d8778}
+.util-note{font-size:12px;color:var(--sub);margin-top:4px}
+
+/* ==== 三相200Vの注意ブロック ==== */
+.tp-box{
+  border:1px solid var(--noren);background:#fbf3f1;padding:14px 16px;margin-bottom:14px;font-size:13px;
+}
+.tp-box.ok{border-color:#c7dccb;background:#eef4ef}
+.tp-box .tp-head{
+  font-family:'Shippori Mincho',serif;font-weight:800;font-size:14px;margin-bottom:8px;color:var(--noren-dark);
+}
+.tp-box.ok .tp-head{color:var(--ok)}
+.tp-box ul{list-style:none;padding:0;margin:0}
+.tp-box li{padding:5px 0 5px 16px;position:relative;color:var(--sub);border-bottom:1px dashed var(--line)}
+.tp-box li:last-child{border-bottom:none}
+.tp-box li::before{content:"▸";position:absolute;left:0;color:var(--noren)}
+.tp-box li b{color:var(--ink)}
+.tp-box .tp-foot{font-size:12px;color:var(--sub);margin:10px 0 0;line-height:1.8}
+
+/* ==== 実測リファレンス表 ==== */
+.ref-table{width:100%;border-collapse:collapse;font-size:12px;min-width:520px}
+.ref-scroll{overflow-x:auto}
+
+/* ==== 図面・設備総容量リストのCTA（本命の導線） ==== */
+.plan-cta{
+  display:block;position:relative;overflow:hidden;text-decoration:none;color:var(--ink);
+  border:2px solid var(--noren);
+  background:
+    repeating-linear-gradient(135deg,rgba(168,54,42,.04) 0 6px,transparent 6px 14px),
+    linear-gradient(180deg,#fffefb 0%,#fbf3f1 100%);
+  padding:24px 22px 20px;margin:16px 0 6px;
+}
+.plan-cta:hover{border-color:var(--noren-dark)}
+.plan-cta:focus-visible{outline:3px solid var(--flame);outline-offset:2px}
+.pc-flag{
+  position:absolute;top:0;right:0;
+  background:var(--noren);color:#fff;-webkit-text-fill-color:#fff;
+  font-size:11px;letter-spacing:.1em;padding:3px 10px;
+}
+.pc-title{
+  font-family:'Shippori Mincho',serif;font-weight:800;font-size:22px;line-height:1.5;
+  color:var(--ink);margin-bottom:10px;padding-right:80px;
+}
+.pc-title em{font-style:normal;color:var(--noren);border-bottom:2px solid var(--noren)}
+.pc-lead{font-size:13px;color:var(--sub);margin:0 0 14px;line-height:1.8}
+.pc-lead b{color:var(--ink)}
+.pc-list{list-style:none;padding:0;margin:0 0 18px;border-top:1px solid var(--line)}
+.pc-list li{
+  font-size:13px;color:var(--sub);padding:9px 0 9px 20px;position:relative;
+  border-bottom:1px solid var(--line);line-height:1.7;
+}
+.pc-list li::before{content:"✓";position:absolute;left:0;color:var(--noren);font-weight:700}
+.pc-list li b{color:var(--ink)}
+.pc-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  background:var(--noren);color:#fff;-webkit-text-fill-color:#fff;
+  font-family:'Shippori Mincho',serif;font-weight:800;font-size:17px;letter-spacing:.06em;
+  padding:16px 18px;text-align:center;
+}
+.plan-cta:hover .pc-btn{background:var(--noren-dark)}
+.pc-btn i{font-style:normal;transition:transform .18s ease;display:inline-block}
+.plan-cta:hover .pc-btn i{transform:translateX(5px)}
+.pc-note{display:block;font-size:12px;color:var(--sub);text-align:center;margin-top:10px}
+
+/* ==== 業態別の診断根拠パネル ==== */
+.logic-box{
+  border:1px solid var(--line);background:#fff;padding:14px 16px;margin-bottom:14px;font-size:13px;
+}
+.logic-box .lb-head{
+  font-family:'Shippori Mincho',serif;font-weight:800;font-size:14px;margin-bottom:8px;color:var(--ink);
+}
+.logic-box ul{list-style:none;padding:0;margin:0}
+.logic-box li{padding:5px 0 5px 16px;position:relative;color:var(--sub);border-bottom:1px dashed var(--line)}
+.logic-box li:last-child{border-bottom:none}
+.logic-box li::before{content:"▸";position:absolute;left:0;color:var(--noren)}
+.logic-box li b{color:var(--ink)}
+.hall-tag{
+  display:inline-block;font-size:10px;letter-spacing:.06em;margin-left:6px;
+  border:1px solid var(--steel);color:var(--steel);background:#eef2f4;padding:0 5px;border-radius:2px;
+}
+
+/* ==== マッチング送客フォーム ==== */
+.match-section{
+  margin-top:36px;border:2px solid var(--noren);border-radius:4px;
+  background:var(--paper);padding:28px;
+}
+.match-title{
+  font-family:'Shippori Mincho',serif;font-weight:800;font-size:22px;
+  color:var(--noren);text-align:center;margin-bottom:8px;
+}
+.match-sub{font-size:13px;color:var(--sub);text-align:center;margin-bottom:24px;line-height:1.6}
+.match-options{display:flex;flex-direction:column;gap:16px;margin-bottom:28px}
+.match-option-card{
+  border:1px solid var(--line);background:#fff;padding:16px;
+  display:grid;grid-template-columns:40px 1fr;align-items:start;cursor:pointer;
+  transition:border-color .15s ease;
+}
+.match-option-card:hover{border-color:var(--flame)}
+.match-option-card input[type=checkbox]{width:20px;height:20px;margin-top:4px;cursor:pointer}
+.match-option-text .opt-title{font-weight:700;font-size:15px;color:var(--ink)}
+.match-option-text .opt-desc{font-size:12px;color:var(--sub);margin-top:4px;line-height:1.5}
+.match-form-fields{border-top:1px dashed var(--line);padding-top:24px;margin-top:24px}
+.match-form-fields .grid2{margin-bottom:14px}
+
+.pr-badge{
+  display:inline-block;margin-left:8px;font-size:10px;letter-spacing:.08em;
+  border:1px solid var(--line);background:#faf8f1;color:var(--sub);padding:1px 5px;border-radius:2px;
+}
+.ad-disclosure{
+  font-size:12px;color:var(--sub);background:#faf8f1;border:1px solid var(--line);
+  padding:8px 12px;margin:0 0 14px;line-height:1.6;
+}
+footer{border-top:1px solid var(--line);padding:28px 0;text-align:center;font-size:12px;color:var(--sub);background:var(--bg)}
+
+@media(max-width:600px){
+  .brand{font-size:13px}
+  .gnav{gap:12px;font-size:12px}
+  .gnav .pr-badge{display:none}
+  .col-grid{grid-template-columns:1fr}
+  .card{padding:22px 16px}
+  .grid2{grid-template-columns:1fr}
+  .stat-grid{grid-template-columns:1fr}
+  .hero h1{font-size:25px}
+  .kk-item,.kk-total{grid-template-columns:1fr;gap:10px}
+  .kk-price{border-left:none;border-top:1px solid var(--line);padding-left:0;padding-top:10px}
+  .kk-total .t{padding-left:0}
+
+  .eq-shops{grid-template-columns:repeat(2,1fr)}
+  .eq-head .eq-meta{text-align:left}
+  .ss-row{grid-template-columns:80px 1fr 76px;gap:8px}
+  .t-card{flex:0 0 240px}
+  .eq-top{grid-template-columns:48px 1fr;gap:10px}
+  .eq-thumb{width:48px;height:48px;flex-basis:48px}
+  .kk-main{grid-template-columns:48px 1fr;gap:10px}
+
+  .pc-title{font-size:19px;padding-right:0;margin-top:16px}
+  .hero-copy{font-size:20px}
+  #ref-static h2{font-size:18px}
+  .cap-row input[type=number]{flex:1 1 120px;width:auto}
+}
+@media (prefers-reduced-motion: reduce){
+  .slider{scroll-behavior:auto}
+  *{transition:none !important}
+}
+</style>
+
+<!-- ▼ 構造化データ（WebApplication / FAQPage / BreadcrumbList） -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"WebApplication",
+      "@id":"https://your-domain.example/#app",
+      "name":"ちゅーぼーシミュレーター",
+      "alternateName":"ちゅーぼーシュミレーター",
+      "url":"https://your-domain.example/",
+      "applicationCategory":"BusinessApplication",
+      "operatingSystem":"All",
+      "inLanguage":"ja",
+      "description":"業態と席数から、必要な厨房機器と新品・中古の概算費用を診断する無料ツール。",
+      "offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"}
+    },
+    {
+      "@type":"FAQPage",
+      "@id":"https://your-domain.example/#faq",
+      "mainEntity":[
+        {"@type":"Question","name":"厨房機器一式の費用はいくらかかりますか？",
+         "acceptedAnswer":{"@type":"Answer","text":"業態と席数によりますが、20席規模で新品なら150〜300万円、中古中心なら60〜130万円が本体価格の目安です。搬入・設置・ガス・電気・給排水の工事費は別途必要になります。"}},
+        {"@type":"Question","name":"厨房の面積はどれくらい必要ですか？",
+         "acceptedAnswer":{"@type":"Answer","text":"一般的には延床の3分の1程度が目安です。実際の設計図面では、40席のカフェが延床101.41㎡のうち厨房29.59㎡でした。"}},
+        {"@type":"Question","name":"三相200V（動力）の引込は必要ですか？",
+         "acceptedAnswer":{"@type":"Answer","text":"スチームコンベクションオーブン、ドアタイプの食器洗浄機、業務用IH、大型の製氷機などは三相200Vを前提とする機種が主流です。実測したカフェ4件の三相容量は5.2〜21.1kWで、オール電化の2件は20kWを超えていました。"}},
+        {"@type":"Question","name":"シンクは二槽と三槽のどちらが必要ですか？",
+         "acceptedAnswer":{"@type":"Answer","text":"二槽が標準ですが、所轄の保健所によっては三槽シンクを指定されます。食器洗浄機を1槽として扱えるかにも地域差があるため、事前相談をおすすめします。"}},
+        {"@type":"Question","name":"厨房機器は中古で揃えても大丈夫ですか？",
+         "acceptedAnswer":{"@type":"Answer","text":"シンク・作業台・吊戸棚などの造作類は中古で問題になりにくい一方、製氷機・食器洗浄機のように稼働部と水を扱う機器は、故障時の営業停止リスクを踏まえて判断してください。LPGと都市ガスは器具の仕様が異なるため、ガス機器を中古で買う場合はガス種の指定が必須です。"}}
+      ]
+    },
+    {
+      "@type":"BreadcrumbList",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"ホーム","item":"https://your-domain.example/"}
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./index.html">ちゅーぼー<span>シミュレーター</span></a>
+    <nav class="gnav">
+      <a href="./index.html" aria-current="page">診断</a>
+      <a href="./data.html">実測データ</a>
+      <a href="./columns.html">コラム</a>
+      <span class="pr-badge">PR</span>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">開業準備 無料診断</span>
+    <h1>飲食店の<em>厨房機器</em>と<em>費用</em>を、<br>業態・席数から無料診断</h1>
+    <p class="hero-copy">その厨房、何を揃えればいいか。5分でわかります。</p>
+
+    <svg class="hero-illust" viewBox="0 0 420 150" role="img" aria-label="厨房機器が並ぶ調理場のイラスト" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M96 16h150l-18 26H114z"/>
+      <path d="M138 16V6M204 16V6"/>
+      <g class="ac" stroke="currentColor" opacity=".85">
+        <path d="M158 62c-5-6 5-10 0-16M172 62c-5-6 5-10 0-16M186 62c-5-6 5-10 0-16"/>
+      </g>
+      <path d="M150 66h44v26a6 6 0 0 1-6 6h-32a6 6 0 0 1-6-6z"/>
+      <path d="M144 66h56M146 74h-6M198 74h6"/>
+      <path d="M132 98h80v14h-80z"/>
+      <path d="M138 112v14M206 112v14"/>
+      <path d="M28 40h56v86H28z"/><path d="M28 74h56"/>
+      <path d="M40 56v10M40 84v10"/>
+      <path d="M236 96h150v10H236z"/>
+      <path d="M244 106v20M378 106v20"/>
+      <path d="M292 96V80h68v16z"/>
+      <circle cx="326" cy="88" r="6"/>
+      <path d="M326 80v-8h16"/>
+      <path d="M8 126h404" stroke-width="1.2" opacity=".55"/>
+      <g class="ac" stroke="currentColor">
+        <path d="M236 66h44c0 12-10 20-22 20s-22-8-22-20z"/>
+        <path d="M232 66h52"/>
+      </g>
+    </svg>
+
+    <p class="lead">
+      業態・席数・メニューを選ぶだけで、必要な厨房機器と新品/中古の概算費用を診断します。
+      見積もり前の「相場感」を掴むための無料ツールです。
+    </p>
+    <div class="ticket-note">
+      <span>&#9737;</span>
+      <span><b>券売機のボタンを押す感覚</b>で選ぶだけ。専門知識は不要です。全5ステップ、所要時間は5分程度です。</span>
+    </div>
+  </div>
+</div>
+
+<section class="wrap">
+  <div class="card" id="form-card">
+    <div id="form-view">
+
+      <div class="stepbar">
+        <div class="meta">
+          <span class="no" id="step-no">STEP 1 / 5</span>
+          <span id="step-remain">残り4ステップ</span>
+        </div>
+        <div class="bar"><i id="step-bar" style="width:20%"></i></div>
+      </div>
+
+      <!-- STEP 1 -->
+      <div class="step" data-step="1">
+        <div class="step-head">
+          <span class="step-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M8 14h32l-4 6H12z"/><path d="M16 14V8M32 14V8"/>
+              <path d="M14 26h20c0 6-5 10-10 10s-10-4-10-10z"/><path d="M11 26h26"/><path d="M14 40h20"/>
+            </svg>
+          </span>
+          <div>
+            <h2 class="step-title">まず、業態を選んでください</h2>
+            <p class="step-lead">業態によって必要な機器の骨格が決まります。選んだ業態に合わせて、次のステップの質問内容が切り替わります。</p>
+          </div>
+        </div>
+        <div class="field">
+          <label>業態</label>
+          <select id="biz">
+            <option value="ラーメン">ラーメン</option>
+            <option value="カフェ">カフェ</option>
+            <option value="居酒屋">居酒屋</option>
+            <option value="焼肉">焼肉</option>
+            <option value="寿司">寿司</option>
+            <option value="洋食">洋食</option>
+            <option value="テイクアウト">テイクアウト</option>
+            <option value="バー">バー</option>
+            <option value="定食・食堂">定食・食堂</option>
+            <option value="その他">その他</option>
+          </select>
+          <div class="hint" id="biz-hint">スープの炊き方・席数から、茹で麺機や寸胴用コンロのサイズを判定します。</div>
+        </div>
+        <div class="ad-slot" data-ad="step1">広 告 枠</div>
+        <div class="nav-row single">
+          <button class="btn" data-next="2">次へ進む</button>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step" data-step="2" style="display:none">
+        <div class="step-head">
+          <span class="step-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M6 42V16l18-10 18 10v26z"/><path d="M6 42h36"/>
+              <path d="M16 42V28h8v14"/><path d="M30 24h6v8h-6z"/>
+            </svg>
+          </span>
+          <div>
+            <h2 class="step-title">店舗の規模を教えてください</h2>
+            <p class="step-lead">店内面積と席数から、機器のサイズと台数、厨房に収まるかを判定します。</p>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="field">
+            <label>店内面積(延床・㎡)</label>
+            <input type="number" id="storeArea" value="50" min="1" step="1">
+            <div class="hint" id="area-hint">厨房面積は入力値の1/3として概算します。</div>
+          </div>
+          <div class="field">
+            <label>客席数</label>
+            <input type="number" id="seats" value="20" min="0">
+            <div class="hint" id="seats-hint">席数から冷蔵設備・製氷機の能力を決めます。</div>
+          </div>
+        </div>
+        <div class="field">
+          <label>営業時間</label>
+          <select id="hours">
+            <option value="lunch">ランチ中心</option>
+            <option value="dinner">夜営業中心</option>
+            <option value="both" selected>両方</option>
+          </select>
+        </div>
+        <div class="ad-slot" data-ad="step2">広 告 枠</div>
+        <div class="nav-row">
+          <button class="btn ghost" data-prev="1">戻る</button>
+          <button class="btn" data-next="3">次へ進む</button>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step" data-step="3" style="display:none">
+        <div class="step-head">
+          <span class="step-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 6v16a4 4 0 0 0 8 0V6"/><path d="M16 22v20"/>
+              <path d="M34 6c-4 4-4 12-4 16h8V6z"/><path d="M34 22v20"/>
+            </svg>
+          </span>
+          <div>
+            <h2 class="step-title">メニュー内容を選んでください</h2>
+            <p class="step-lead" id="menu-lead">提供するものによって、追加で必要な機器が変わります。</p>
+          </div>
+        </div>
+
+        <div class="field" id="menu-field-generic">
+          <label id="menu-label">メニュー内容(該当するものを選択)</label>
+          <div class="chips" id="menu-flags"></div>
+          <div class="hint" id="menu-hint"></div>
+        </div>
+
+        <div class="field" id="menu-field-extra" style="display:none">
+          <label id="extra-label"></label>
+          <select id="extraSel"></select>
+          <div class="hint" id="extra-hint"></div>
+        </div>
+
+        <div class="field" id="menu-field-ramen" style="display:none">
+          <label>スープ</label>
+          <select id="soupSource">
+            <option value="store">店炊き</option>
+            <option value="buy">仕入れ</option>
+          </select>
+        </div>
+        <div class="field" id="ramen-chips-field" style="display:none">
+          <label>該当するものを選択(ラーメン店)</label>
+          <div class="chips" id="menu-flags-ramen">
+            <label class="chip"><input type="checkbox" value="charshu_house">チャーシューも店内調理</label>
+            <label class="chip"><input type="checkbox" value="gyoza">餃子あり</label>
+            <label class="chip"><input type="checkbox" value="gyoza_frozen">冷凍餃子使用</label>
+            <label class="chip"><input type="checkbox" value="chahan">チャーハンあり</label>
+            <label class="chip"><input type="checkbox" value="karaage">唐揚げあり</label>
+            <label class="chip"><input type="checkbox" value="rice">ご飯あり</label>
+            <label class="chip"><input type="checkbox" value="charshu_frozen">冷凍チャーシュー使用</label>
+            <label class="chip"><input type="checkbox" value="dessert">アイス・デザート提供</label>
+            <label class="chip"><input type="checkbox" value="alcohol">ビール以外のアルコール提供あり</label>
+            <label class="chip"><input type="checkbox" value="food_washer">食器洗浄機を設置する</label>
+          </div>
+        </div>
+        <div class="ad-slot" data-ad="step3">広 告 枠</div>
+        <div class="nav-row">
+          <button class="btn ghost" data-prev="2">戻る</button>
+          <button class="btn" data-next="4">次へ進む</button>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step" data-step="4" style="display:none">
+        <div class="step-head">
+          <span class="step-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M24 42s13-11 13-22a13 13 0 1 0-26 0c0 11 13 22 13 22z"/><circle cx="24" cy="20" r="5"/>
+            </svg>
+          </span>
+          <div>
+            <h2 class="step-title">物件の場所と設備条件を教えてください</h2>
+            <p class="step-lead">出店エリアから近隣のテナント相場を、ガス種・電源から機器の選定と法規の確認事項を判定します。</p>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div class="field">
+            <label>都道府県</label>
+            <select id="pref">
+              <option value="">選択してください</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>市区町村</label>
+            <select id="city" disabled>
+              <option value="">都道府県を先に選択</option>
+            </select>
+            <div class="hint">診断結果で、このエリアのテナント情報をご紹介します。</div>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div class="field">
+            <label>ガス種</label>
+            <select id="gas">
+              <option value="都市ガス">都市ガス</option>
+              <option value="LPG">LPG（プロパンガス）</option>
+              <option value="なし">ガスを使わない（オール電化）</option>
+              <option value="不明">不明</option>
+            </select>
+            <div class="hint" id="gas-hint">実測したカフェ4件のうち2件は、ガスの引込がないオール電化の厨房でした。その場合は加熱が電気に寄るため、三相200Vの容量が20kW前後まで上がります。</div>
+          </div>
+          <div class="field">
+            <label>ガス容量</label>
+            <div class="cap-row">
+              <input type="number" id="gasCap" min="0" step="0.1" placeholder="例：50">
+              <span class="unit">kW</span>
+              <label class="chip"><input type="checkbox" id="gasCapUnknown"> 不明</label>
+            </div>
+            <div class="hint">物件資料・ガスメーター・管理会社への確認でわかります。わからなければ「不明」で結構です。<b>給湯器を含まない、調理機器のみの合計</b>でご入力ください（実測例では、合計70.1kWのうち63%が給湯器でした）。</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>電気（引込のあるものを選択）</label>
+          <div class="elec-group">
+            <label class="chip"><input type="checkbox" id="elecLight" checked> 電灯（単相100V／200V）</label>
+            <div class="cap-row sub" id="elecLightCap">
+              <input type="number" id="elecLightKw" min="0" step="0.1" placeholder="例：8">
+              <span class="unit">kW</span>
+              <label class="chip"><input type="checkbox" id="elecLightUnknown"> 不明</label>
+            </div>
+
+            <label class="chip"><input type="checkbox" id="elecPower"> 三相200V（動力）</label>
+            <div class="cap-row sub" id="elecPowerCap" hidden>
+              <input type="number" id="elecPowerKw" min="0" step="0.1" placeholder="例：10">
+              <span class="unit">kW</span>
+              <label class="chip"><input type="checkbox" id="elecPowerUnknown"> 不明</label>
+            </div>
+
+            <label class="chip"><input type="checkbox" id="elecUnknown"> 電気の引込・容量ともに不明</label>
+          </div>
+          <div class="util-note">スチームコンベクションオーブン・食器洗浄機・大型製氷機などは三相200Vが前提の機種が多く、引込の有無で工事費が大きく変わります。実測したカフェ4件の三相容量は5.2〜21.1kW、うちオール電化の2件は20kW超でした。</div>
+        </div>
+
+        <div class="field">
+          <label class="chip" style="display:inline-flex"><input type="checkbox" id="commercial"> 商業施設(ショッピングモール等)内への出店</label>
+        </div>
+        <div class="ad-slot" data-ad="step4">広 告 枠</div>
+        <div class="nav-row">
+          <button class="btn ghost" data-prev="3">戻る</button>
+          <button class="btn" data-next="5">次へ進む</button>
+        </div>
+      </div>
+
+      <!-- STEP 5 -->
+      <div class="step" data-step="5" style="display:none">
+        <div class="step-head">
+          <span class="step-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="6" y="12" width="36" height="24" rx="3"/><circle cx="24" cy="24" r="6"/>
+              <path d="M12 20v8M36 20v8"/>
+            </svg>
+          </span>
+          <div>
+            <h2 class="step-title">最後に、予算の条件を教えてください</h2>
+            <p class="step-lead">新品・中古それぞれの概算と、予算内に収まるかを判定します。</p>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="field">
+            <label>厨房予算</label>
+            <select id="budget">
+              <option value="50">50万円以下</option>
+              <option value="100" selected>100万円</option>
+              <option value="200">200万円</option>
+              <option value="300">300万円以上</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>中古利用</label>
+            <select id="used">
+              <option value="new">新品希望</option>
+              <option value="ok" selected>中古OK</option>
+              <option value="cheap">できるだけ安く</option>
+            </select>
+          </div>
+        </div>
+        <div class="ad-slot" data-ad="step5">広 告 枠</div>
+        <div class="nav-row">
+          <button class="btn ghost" data-prev="4">戻る</button>
+          <button class="btn" id="run-btn">診断する</button>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="result-view" style="display:none"></div>
+  </div>
+</section>
+
+<section class="wrap" style="padding-top:0">
+  <div style="font-size:13px;color:var(--sub);text-align:center;max-width:560px;margin:0 auto">
+    ※ 表示される金額は代表的な機種・相場に基づく概算です。実際の価格は店舗条件・メーカー・仕入れ時期・各サイトの在庫状況により変動します。
+    保健所・消防への確認が必要な設備仕様は、必ず所轄窓口にご確認ください。
+  </div>
+</section>
+
+<!-- ============================================================
+     ▼ 静的コンテンツ（SEOの要点のみ）
+     詳細は data.html（実測データ）／columns.html（コラム）へ分割。
+     数値を更新するときは、JS側の REF_CASES と data.html も直すこと。
+     ============================================================ -->
+<section class="wrap" id="ref-static">
+  <div class="card">
+    <h2>実際の厨房設計図面から分かった、3つのこと</h2>
+    <p>カフェ・喫茶4件の設計図面と機器リストから採取した実測値です。要点だけ先に載せています。</p>
+
+    <ul class="checklist" style="margin-top:16px">
+      <li><b>席数は、機器構成を決めていない。</b>20席の店が最多の35点、40席が最少の20点でした。決めているのはメニューと仕込みの方針です。</li>
+      <li><b>三相200Vの容量は、スチコンがほぼ単独で決める。</b>50席の例では、スチームコンベクションオーブン1台が三相全体の96%を占めていました。</li>
+      <li><b>ガスと三相200Vはトレードオフ。</b>ガス70.1kWの店は三相5.2kW、ガスなしの店は三相20.1kW。動力の引込が難しい物件でも、構成を振り替える余地があります。</li>
+    </ul>
+
+    <div class="ref-scroll" style="margin-top:18px">
+      <table class="ref-table">
+        <caption style="text-align:left;font-size:12px;color:var(--sub);padding-bottom:6px">カフェ・喫茶4件の実測値（機器点数・ガス容量・三相200V・機器の床面積）</caption>
+        <thead>
+          <tr>
+            <th scope="col">席数</th>
+            <th scope="col">機器点数</th>
+            <th scope="col">ガス容量</th>
+            <th scope="col">三相200V</th>
+            <th scope="col">機器の床面積</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">20席</th><td>35点</td><td>都市ガス 70.1kW</td><td>5.2kW</td><td>10.29㎡</td></tr>
+          <tr><th scope="row">30席</th><td>22点</td><td>なし（オール電化）</td><td>20.1kW</td><td>7.71㎡</td></tr>
+          <tr><th scope="row">40席</th><td>21点</td><td>LPG 34.4kW</td><td>11.1kW</td><td>8.56㎡</td></tr>
+          <tr><th scope="row">50席</th><td>33点</td><td>なし（オール電化）</td><td>21.1kW</td><td>13.65㎡</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <a class="more-link" href="./data.html">構成の内訳・面積の考え方など、実測データの詳細を見る →</a>
+
+    <h3>よくある質問</h3>
+    <div class="acc">
+      <details>
+        <summary>厨房機器一式の費用はいくらかかりますか？</summary>
+        <div class="acc-body">
+          <p>業態と席数によりますが、20席規模で新品なら150〜300万円、中古中心なら60〜130万円が本体価格の目安です。搬入・設置費、ガス・電気・給排水の工事費、什器・内装費は別途必要になります。上の診断ツールで、業態ごとの内訳を確認できます。</p>
+        </div>
+      </details>
+      <details>
+        <summary>厨房の面積はどれくらい必要ですか？</summary>
+        <div class="acc-body">
+          <p>一般的には延床の3分の1程度が目安とされます。実測では、40席のカフェが延床101.41㎡のうち厨房29.59㎡（約29%）でした。ただし機器の設置寸法が収まっても、間口・柱・梁・通路幅・給排水の取り出し位置によって配置できない場合があります。最終的な可否は図面でしか判断できません。</p>
+        </div>
+      </details>
+      <details>
+        <summary>三相200V（動力）の引込は必要ですか？</summary>
+        <div class="acc-body">
+          <p>スチームコンベクションオーブン、ドアタイプの食器洗浄機、業務用IH、能力の大きい製氷機などは、三相200Vを前提とする機種が主流です。実測4件の三相容量は5.2／11.1／20.1／21.1kWで、オール電化の2件はいずれも20kWを超えていました。引込のない物件では数十万円規模の工事が発生することがあるため、物件契約の前に確認してください。</p>
+        </div>
+      </details>
+      <details>
+        <summary>シンクは二槽と三槽のどちらが必要ですか？</summary>
+        <div class="acc-body">
+          <p>二槽が標準ですが、所轄の保健所によっては三槽シンクを指定されます。食器洗浄機を1槽として扱えるかにも地域差があるため、事前相談をおすすめします。手洗い設備と扉付き収納は、どの業態でも要件になります。</p>
+        </div>
+      </details>
+      <details>
+        <summary>厨房機器は中古で揃えても大丈夫ですか？</summary>
+        <div class="acc-body">
+          <p>シンク・作業台・吊戸棚などの造作類は中古で問題になりにくい一方、製氷機・食器洗浄機のように稼働部と水を扱う機器は、故障したときに営業が止まるリスクを踏まえて判断してください。LPGと都市ガスは器具の仕様（ノズル・調整器）が異なり、後から変更できない機種もあるため、ガス機器を中古で買う場合はガス種の指定が必須です。</p>
+        </div>
+      </details>
+      <details>
+        <summary>この診断だけで発注してよいですか？</summary>
+        <div class="acc-body">
+          <p>いいえ。本ツールの面積判定は、機器の設置寸法を単純に合計して厨房面積と比較した参考値です。「配置可能」と出ても図面上で入らないことがあり、逆に「配置注意」でもレイアウトの工夫で収まる場合があります。金額も代表的な機種の相場に基づく概算で、実売価格ではありません。確定させるには厨房レイアウト図と設備総容量リストが必要です。</p>
+        </div>
+      </details>
+    </div>
+
+    <p class="disclaimer">
+      実測値は、実際に作図された厨房設計図面から採取したものです。全4件がカフェ・喫茶業態のため、他業態への外挿はできません。法令に関する記載は一般的な目安であり、最終的な判断は所轄の保健所・消防署にご確認ください。
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
+     ▼ コラム最新記事（assets/articles.js の ARTICLES から自動生成）
+     記事を追加するときは assets/articles.js に1件足すだけ。
+     ============================================================ -->
+<section class="wrap" id="column-latest" style="padding-top:0">
+  <div class="card">
+    <h2 style="font-size:20px">コラム・記事</h2>
+    <p style="font-size:14px;color:var(--sub);margin-top:6px">厨房設計・開業準備の現場で判断が分かれるポイントを、実測値をもとに解説しています。</p>
+    <div class="col-grid" data-articles-grid data-limit="2"></div>
+    <a class="more-link" href="./columns.html">コラムをすべて見る →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    ちゅーぼーシミュレーター &mdash; 開業前の厨房設備選びをサポートする無料診断ツール<br>
+    当サイトはアフィリエイトプログラム（楽天アフィリエイト、バリューコマース、メルカリアンバサダー等）に参加しています。
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   価格データ（共通カタログ）
+   ========================================================= */
+const CATALOG = {
+/* --- 洗浄・作業 --- */
+"二槽シンク":{new:80000,used:30000,w:1200,d:600},
+"三槽シンク":{new:110000,used:45000,w:1500,d:600},
+"シンク":{new:60000,used:25000,w:750,d:600},
+"バーシンク":{new:70000,used:28000,w:900,d:450},
+"手洗い器":{new:25000,used:10000,w:400,d:350},
+"作業台":{new:50000,used:20000,w:1200,d:600},
+"包装・盛付台":{new:60000,used:24000,w:1500,d:600},
+"キャビネットテーブル":{new:90000,used:35000,w:1200,d:600},
+"ソイルドテーブル":{new:90000,used:35000,w:1200,d:640},
+"吊戸棚":{new:35000,used:15000,w:0,d:0},
+"食器洗浄機":{new:400000,used:180000,w:600,d:600},
+"グラスウォッシャー":{new:250000,used:100000,w:450,d:600},
+"包丁まな板殺菌庫":{new:100000,used:40000,w:600,d:500},
+
+/* --- 冷蔵・冷凍 --- */
+"コールドテーブル1200":{new:300000,used:130000,w:1200,d:650},
+"コールドテーブル1500":{new:350000,used:150000,w:1500,d:650},
+"縦型冷凍冷蔵庫750":{new:320000,used:140000,w:750,d:800},
+"縦型冷凍冷蔵庫1200":{new:420000,used:180000,w:1200,d:800},
+"縦型冷凍庫1200":{new:450000,used:190000,w:1200,d:800},
+"冷蔵庫":{new:300000,used:120000,w:1200,d:800},
+"冷凍庫":{new:280000,used:110000,w:750,d:800},
+"小型冷凍ストッカー":{new:120000,used:50000,w:750,d:600},
+"ワインセラー":{new:150000,used:60000,w:600,d:600},
+"製氷機25kg":{new:200000,used:80000,w:447,d:450},
+"製氷機35kg":{new:250000,used:100000,w:500,d:450},
+"製氷機45kg":{new:300000,used:120000,w:550,d:450},
+"製氷機65kg":{new:380000,used:150000,w:630,d:525},
+"製氷機":{new:250000,used:100000,w:500,d:450},
+
+/* --- 加熱 --- */
+"鋳物コンロ1口":{new:100000,used:40000,w:600,d:600},
+"鋳物コンロ2口":{new:150000,used:60000,w:750,d:600},
+"鋳物コンロ3口":{new:210000,used:85000,w:900,d:600},
+"鋳物コンロ":{new:150000,used:60000,w:750,d:600},
+"卓上ガスコンロ2口":{new:80000,used:30000,w:600,d:600},
+"電磁調理器(卓上IH)":{new:120000,used:50000,w:600,d:600},
+"ガスレンジ":{new:200000,used:80000,w:900,d:600},
+"ガスレンジ1200":{new:280000,used:110000,w:1200,d:600},
+"中華レンジ":{new:250000,used:100000,w:900,d:750},
+"フライヤー":{new:180000,used:70000,w:450,d:600},
+"卓上電気フライヤー":{new:60000,used:25000,w:300,d:450},
+"焼き台":{new:200000,used:80000,w:900,d:600},
+"魚焼きグリラー":{new:180000,used:70000,w:600,d:600},
+"サラマンダー":{new:150000,used:60000,w:600,d:450},
+"パスタボイラー":{new:280000,used:120000,w:450,d:600},
+"麺茹で機":{new:350000,used:150000,w:450,d:600},
+"餃子焼器":{new:150000,used:60000,w:600,d:450},
+"おでん鍋":{new:100000,used:40000,w:900,d:450},
+"蒸し器":{new:120000,used:50000,w:600,d:600},
+"オーブン":{new:300000,used:120000,w:900,d:750},
+"コンベクションオーブン":{new:300000,used:120000,w:900,d:750},
+"スチームコンベクションオーブン":{new:900000,used:350000,w:900,d:800},
+"電子レンジ(業務用)":{new:80000,used:30000,w:500,d:450},
+"ピザ窯":{new:800000,used:300000,w:1200,d:1200},
+
+/* --- ご飯もの --- */
+"炊飯器(業務用)":{new:150000,used:60000,w:450,d:450},
+"炊飯器(業務用・1升)":{new:100000,used:40000,w:450,d:450},
+"炊飯器(業務用・3升)":{new:180000,used:75000,w:600,d:550},
+"ガス炊飯器(5升)":{new:260000,used:100000,w:750,d:600},
+"洗米機":{new:200000,used:80000,w:400,d:500},
+"電子ジャー":{new:40000,used:15000,w:400,d:400},
+"シャリ炊飯器":{new:200000,used:80000,w:450,d:450},
+"シャリロボット":{new:600000,used:220000,w:450,d:600},
+
+/* --- ドリンク --- */
+"コーヒーマシン":{new:300000,used:130000,w:400,d:450},
+"エスプレッソマシン2グループ":{new:600000,used:250000,w:800,d:550},
+"コーヒーグラインダー":{new:120000,used:50000,w:250,d:400},
+"ブレンダー(ミキサー)":{new:40000,used:15000,w:200,d:250},
+"生ビールサーバー":{new:150000,used:60000,w:400,d:500},
+"ドリンクディスペンサー":{new:200000,used:80000,w:400,d:500},
+
+/* --- 見せる・売る --- */
+"ネタケース":{new:400000,used:150000,w:1500,d:600},
+"陳列ケース":{new:250000,used:100000,w:1200,d:600},
+"テーブル形冷蔵ショーケース":{new:220000,used:90000,w:900,d:600},
+"カウンター冷蔵ショーケース":{new:280000,used:110000,w:1200,d:500},
+"ホットショーケース":{new:200000,used:80000,w:900,d:450},
+"ソフトクリームフリーザー":{new:400000,used:150000,w:500,d:600},
+
+/* --- 専用機・その他 --- */
+"焼肉ロースター":{new:150000,used:60000,w:750,d:600,hallDefault:true},
+"ミートスライサー":{new:250000,used:100000,w:600,d:500},
+"真空包装機":{new:300000,used:120000,w:500,d:500},
+"換気設備(ダクト)":{new:500000,used:500000,w:0,d:0},
+"無煙ロースター用ダクト":{new:800000,used:800000,w:0,d:0}
+};
+
+const BIZ = {
+"ラーメン":[["冷蔵庫","◎"],["冷凍庫","○"],["二槽シンク","◎"],["製氷機","○"],["麺茹で機","◎"],["鋳物コンロ","◎"],["作業台","◎"],["食器洗浄機","△"]],
+"カフェ":[["冷蔵庫","◎"],["製氷機","◎"],["シンク","◎"],["コーヒーマシン","○"],["食器洗浄機","△"]],
+"居酒屋":[["冷蔵庫","◎"],["冷凍庫","◎"],["二槽シンク","◎"],["製氷機","◎"],["鋳物コンロ","○"],["フライヤー","○"],["焼き台","○"],["作業台","◎"],["食器洗浄機","○"]],
+"焼肉":[["冷蔵庫","◎"],["冷凍庫","◎"],["二槽シンク","◎"],["焼肉ロースター","◎"],["換気設備(ダクト)","◎"],["作業台","◎"],["食器洗浄機","○"]],
+"寿司":[["冷蔵庫","◎"],["冷凍庫","◎"],["ネタケース","◎"],["シャリ炊飯器","◎"],["二槽シンク","◎"],["作業台","◎"]],
+"洋食":[["冷蔵庫","◎"],["冷凍庫","○"],["二槽シンク","◎"],["フライヤー","○"],["オーブン","○"],["ガスレンジ","◎"],["作業台","◎"],["食器洗浄機","△"]],
+"テイクアウト":[["冷蔵庫","◎"],["冷凍庫","○"],["シンク","◎"],["作業台","◎"],["陳列ケース","○"]],
+"バー":[["冷蔵庫","◎"],["製氷機","◎"],["シンク","◎"],["カウンター冷蔵ショーケース","○"]],
+"定食・食堂":[["冷蔵庫","◎"],["冷凍庫","○"],["二槽シンク","◎"],["炊飯器(業務用)","◎"],["ガスレンジ","◎"],["フライヤー","○"],["作業台","◎"],["食器洗浄機","○"]],
+"その他":[["冷蔵庫","◎"],["シンク","◎"],["作業台","◎"],["ガスレンジ","○"]]
+};
+const MENU_MAP = {noodle:"麺茹で機",soup:"鋳物コンロ2口",fry:"フライヤー",stirfry:"中華レンジ",gyoza:"餃子焼器",dessert:"小型冷凍ストッカー",dishwasher:"食器洗浄機"};
+
+const RAMEN_CATALOG = {
+"二槽シンク":      {new:80000,  used:30000,  w:1200,d:600},
+"手洗い器":        {new:25000,  used:10000,  w:400, d:350},
+"コールドテーブル1200":{new:300000,used:130000,w:1200,d:650},
+"縦型冷凍冷蔵庫750": {new:320000, used:140000, w:750, d:800},
+"縦型冷凍冷蔵庫1200":{new:420000, used:180000, w:1200,d:800},
+"茹で麺機6テボ":    {new:280000, used:120000, w:450, d:600},
+"茹で麺機9テボ":    {new:350000, used:150000, w:600, d:600},
+"鋳物コンロ1口":    {new:100000, used:40000,  w:600, d:600},
+"鋳物コンロ2口":    {new:150000, used:60000,  w:750, d:600},
+"鋳物コンロ3口":    {new:210000, used:85000,  w:900, d:600},
+"作業台":          {new:50000,  used:20000,  w:1200,d:600},
+"吊戸棚":          {new:35000,  used:15000,  w:0,   d:0},
+"製氷機25kg":      {new:200000, used:80000,  w:447, d:450},
+"製氷機35kg":      {new:250000, used:100000, w:500, d:450},
+"製氷機45kg":      {new:300000, used:120000, w:550, d:450},
+"餃子焼器":        {new:150000, used:60000,  w:600, d:450},
+"中華レンジ":       {new:250000, used:100000, w:900, d:750},
+"フライヤー":       {new:180000, used:70000,  w:450, d:600},
+"炊飯器(業務用・1升)":{new:100000, used:40000, w:450, d:450},
+"炊飯器(業務用・3升)":{new:180000, used:75000, w:600, d:550},
+"電子ジャー":       {new:40000,  used:15000,  w:400, d:400},
+"小型冷凍ストッカー":{new:120000, used:50000, w:750, d:600},
+"食器洗浄機":       {new:400000, used:180000, w:600, d:600},
+"スチームコンベクションオーブン":{new:900000, used:350000, w:900, d:800},
+"真空包装機":       {new:300000, used:120000, w:500, d:500},
+};
+
+const EQUIP_LINKS = {
+"二槽シンク": "https://www.tenpos.com/c/outlet-sink-all/outlet-double-sink?sort=price_low",
+"三槽シンク": "https://www.tenpos.com/c/outlet-sink-all/outlet-tripple-sink?sort=price_low",
+"シンク": "https://www.tenpos.com/c/outlet-sink-all?sort=price_low",
+"バーシンク": "https://www.tenpos.com/c/outlet-sink-all?sort=price_low",
+"作業台": "https://www.tenpos.com/c/outlet-sink-all/outlet-equipment-stand1?sort=price_low",
+"包装・盛付台": "https://www.tenpos.com/c/outlet-sink-all/outlet-equipment-stand1?sort=price_low",
+"キャビネットテーブル": "https://www.tenpos.com/c/outlet-sink-all/outlet-equipment-stand1?sort=price_low",
+"ソイルドテーブル": "https://www.tenpos.com/c/outlet-sink-all/outlet-equipment-stand1?sort=price_low",
+"テーブル形冷蔵ショーケース": "https://www.tenpos.com/c/outlet-cold-all?sort=price_low",
+"吊戸棚": "https://www.tenpos.com/c/outlet-sink-all/outlet-storage1?sort=price_low",
+"コールドテーブル1200": "https://www.tenpos.com/c/outlet-cold-all/outlet-undercounter1?sort=price_low",
+"コールドテーブル1500": "https://www.tenpos.com/c/outlet-cold-all/outlet-undercounter1?sort=price_low",
+"縦型冷凍冷蔵庫750": "https://www.tenpos.com/c/outlet-cold-all/outlet-dual-freezer?sort=price_low",
+"縦型冷凍冷蔵庫1200": "https://www.tenpos.com/c/outlet-cold-all/outlet-dual-freezer?sort=price_low",
+"縦型冷凍庫1200": "https://www.tenpos.com/c/outlet-cold-all/outlet-dual-freezer?sort=price_low",
+"冷蔵庫": "https://www.tenpos.com/c/outlet-cold-all?sort=price_low",
+"冷凍庫": "https://www.tenpos.com/c/outlet-cold-all?sort=price_low",
+"ワインセラー": "https://www.tenpos.com/c/outlet-cold-all?sort=price_low",
+"茹で麺機6テボ": "https://www.tenpos.com/c/outlet-heat-machine/outlet-noodle-boiler?sort=price_low",
+"茹で麺機9テボ": "https://www.tenpos.com/c/outlet-heat-machine/outlet-noodle-boiler?sort=price_low",
+"麺茹で機": "https://www.tenpos.com/c/outlet-heat-machine/outlet-noodle-boiler?sort=price_low",
+"パスタボイラー": "https://www.tenpos.com/c/outlet-heat-machine/outlet-noodle-boiler?sort=price_low",
+"製氷機25kg": "https://www.tenpos.com/c/outlet-cold-all/outlet-ice-machine1?sort=price_low",
+"製氷機35kg": "https://www.tenpos.com/c/outlet-cold-all/outlet-ice-machine1?sort=price_low",
+"製氷機45kg": "https://www.tenpos.com/c/outlet-cold-all/outlet-ice-machine1?sort=price_low",
+"製氷機65kg": "https://www.tenpos.com/c/outlet-cold-all/outlet-ice-machine1?sort=price_low",
+"製氷機": "https://www.tenpos.com/c/outlet-cold-all/outlet-ice-machine1?sort=price_low",
+"餃子焼器": "https://www.tenpos.com/c/outlet-heat-machine/outlet-dumpling-griddles?sort=price_low",
+"中華レンジ": "https://www.tenpos.com/c/outlet-heat-machine/outlet-gas-range3?sort=price_low",
+"ガスレンジ": "https://www.tenpos.com/c/outlet-heat-machine/outlet-gas-range3?sort=price_low",
+"ガスレンジ1200": "https://www.tenpos.com/c/outlet-heat-machine/outlet-gas-range3?sort=price_low",
+"卓上ガスコンロ2口": "https://www.tenpos.com/c/outlet-heat-machine/outlet-gas-range3?sort=price_low",
+"電磁調理器(卓上IH)": "https://www.tenpos.com/c/outlet-heat-machine?sort=price_low",
+"フライヤー": "https://www.tenpos.com/c/outlet-heat-machine/outlet-gas-flyer?sort=price_low",
+"卓上電気フライヤー": "https://www.tenpos.com/c/outlet-heat-machine/outlet-gas-flyer?sort=price_low",
+"炊飯器(業務用・1升)": "https://www.tenpos.com/c/outlet-heat-machine/outlet-rice-cooker?sort=price_low",
+"炊飯器(業務用・3升)": "https://www.tenpos.com/c/outlet-heat-machine/outlet-rice-cooker?sort=price_low",
+"ガス炊飯器(5升)": "https://www.tenpos.com/c/outlet-heat-machine/outlet-rice-cooker?sort=price_low",
+"炊飯器(業務用)": "https://www.tenpos.com/c/outlet-heat-machine/outlet-rice-cooker?sort=price_low",
+"シャリ炊飯器": "https://www.tenpos.com/c/outlet-heat-machine/outlet-rice-cooker?sort=price_low",
+"電子ジャー": "https://www.tenpos.com/c/outlet-heat-machine/outlet-rice-cooker?sort=price_low",
+"小型冷凍ストッカー": "https://www.tenpos.com/c/outlet-cold-all/outlet-storage-cabinet?sort=price_low",
+"食器洗浄機": "https://www.tenpos.com/c/outlet-sanitary-all/outlet-wash-machine?sort=price_low",
+"グラスウォッシャー": "https://www.tenpos.com/c/outlet-sanitary-all/outlet-wash-machine?sort=price_low",
+"スチームコンベクションオーブン": "https://www.tenpos.com/c/outlet-heat-machine/outlet-oven-range?sort=price_low",
+"コンベクションオーブン": "https://www.tenpos.com/c/outlet-heat-machine/outlet-oven-range?sort=price_low",
+"オーブン": "https://www.tenpos.com/c/outlet-heat-machine/outlet-oven-range?sort=price_low",
+"サラマンダー": "https://www.tenpos.com/c/outlet-heat-machine/outlet-oven-range?sort=price_low",
+"真空包装機": "https://www.tenpos.com/c/outlet-kitchen-equipment-all/outlet-machine-11?sort=price_low",
+"ミートスライサー": "https://www.tenpos.com/c/outlet-kitchen-equipment-all/outlet-machine-11?sort=price_low",
+"鋳物コンロ1口": "https://www.tenpos.com/c/outlet-heat-machine?sort=price_low",
+"鋳物コンロ2口": "https://www.tenpos.com/c/outlet-heat-machine?sort=price_low",
+"鋳物コンロ3口": "https://www.tenpos.com/c/outlet-heat-machine?sort=price_low",
+"鋳物コンロ": "https://www.tenpos.com/c/outlet-heat-machine?sort=price_low",
+"焼き台": "https://www.tenpos.com/c/outlet-heat-machine?sort=price_low",
+"魚焼きグリラー": "https://www.tenpos.com/c/outlet-heat-machine?sort=price_low",
+"おでん鍋": "https://www.tenpos.com/c/outlet-heat-machine?sort=price_low",
+"蒸し器": "https://www.tenpos.com/c/outlet-heat-machine?sort=price_low",
+"焼肉ロースター": "https://www.tenpos.com/c/outlet-heat-machine?sort=price_low",
+"手洗い器": "https://www.tenpos.com/c/outlet-sanitary-all?sort=price_low",
+"包丁まな板殺菌庫": "https://www.tenpos.com/c/outlet-sanitary-all?sort=price_low",
+};
+
+/* =========================================================
+   機器の参考イメージ図
+   ========================================================= */
+const EQ_PHOTO = {};
+
+const EQ_ICON = {
+fridge:'<rect x="12" y="5" width="24" height="38" rx="2"/><line x1="12" y1="20" x2="36" y2="20"/><line x1="17" y1="13" x2="17" y2="17"/><line x1="17" y1="24" x2="17" y2="28"/>',
+freezer:'<rect x="12" y="5" width="24" height="38" rx="2"/><line x1="12" y1="20" x2="36" y2="20"/><g class="ac" stroke="currentColor"><path d="M24 26v13M19 29.5l10 6M29 29.5l-10 6"/></g>',
+coldtable:'<rect x="6" y="14" width="36" height="22" rx="2"/><line x1="6" y1="19" x2="42" y2="19"/><line x1="24" y1="19" x2="24" y2="36"/><line x1="11" y1="36" x2="11" y2="42"/><line x1="37" y1="36" x2="37" y2="42"/>',
+sink2:'<rect x="5" y="18" width="38" height="16" rx="2"/><rect x="9" y="21" width="13" height="10" rx="1"/><rect x="26" y="21" width="13" height="10" rx="1"/><path d="M24 18v-6h9" class="ac" stroke="currentColor"/><line x1="10" y1="34" x2="10" y2="41"/><line x1="38" y1="34" x2="38" y2="41"/>',
+sink1:'<rect x="8" y="18" width="32" height="16" rx="2"/><rect x="13" y="21" width="22" height="10" rx="1"/><path d="M24 18v-6h8" class="ac" stroke="currentColor"/><line x1="12" y1="34" x2="12" y2="41"/><line x1="36" y1="34" x2="36" y2="41"/>',
+handwash:'<rect x="14" y="21" width="20" height="12" rx="2"/><path d="M24 21v-8h7" class="ac" stroke="currentColor"/><line x1="18" y1="33" x2="18" y2="41"/><line x1="30" y1="33" x2="30" y2="41"/>',
+burner:'<rect x="7" y="16" width="34" height="21" rx="2"/><circle cx="24" cy="26" r="7.5"/><circle cx="24" cy="26" r="3"/><line x1="12" y1="37" x2="12" y2="42"/><line x1="36" y1="37" x2="36" y2="42"/>',
+noodle:'<rect x="10" y="15" width="28" height="22" rx="2"/><path d="M16 15v-5M24 15v-5M32 15v-5" class="ac" stroke="currentColor"/><line x1="10" y1="23" x2="38" y2="23"/><line x1="14" y1="37" x2="14" y2="42"/><line x1="34" y1="37" x2="34" y2="42"/>',
+ice:'<rect x="12" y="6" width="24" height="36" rx="2"/><line x1="12" y1="27" x2="36" y2="27"/><g class="ac" stroke="currentColor"><path d="M24 11v11M19.5 14l9 5M28.5 14l-9 5"/></g>',
+fryer:'<rect x="12" y="14" width="24" height="23" rx="2"/><path d="M17 21c2.5 3.5 11.5 3.5 14 0" class="ac" stroke="currentColor"/><line x1="16" y1="37" x2="16" y2="42"/><line x1="32" y1="37" x2="32" y2="42"/>',
+table:'<rect x="5" y="18" width="38" height="5" rx="1"/><line x1="9" y1="23" x2="9" y2="42"/><line x1="39" y1="23" x2="39" y2="42"/><line x1="9" y1="33" x2="39" y2="33"/>',
+shelf:'<rect x="7" y="11" width="34" height="16" rx="1"/><line x1="24" y1="11" x2="24" y2="27"/><line x1="11" y1="33" x2="37" y2="33" opacity=".5"/>',
+washer:'<rect x="10" y="8" width="28" height="34" rx="2"/><line x1="10" y1="16" x2="38" y2="16"/><circle cx="24" cy="29" r="8"/><circle cx="24" cy="29" r="3"/>',
+gyoza:'<rect x="7" y="19" width="34" height="13" rx="2"/><path d="M14 19c3.5-6 16.5-6 20 0" class="ac" stroke="currentColor"/><line x1="12" y1="32" x2="12" y2="41"/><line x1="36" y1="32" x2="36" y2="41"/>',
+rice:'<rect x="12" y="16" width="24" height="21" rx="4"/><path d="M14 16h20"/><line x1="24" y1="9" x2="24" y2="16" class="ac" stroke="currentColor"/><path d="M18 26h12" opacity=".6"/>',
+oven:'<rect x="8" y="9" width="32" height="32" rx="2"/><rect x="13" y="18" width="22" height="18" rx="1"/><circle cx="34" cy="13" r="1.8"/><circle cx="28" cy="13" r="1.8"/>',
+range:'<rect x="7" y="14" width="34" height="24" rx="2"/><circle cx="17" cy="21" r="4"/><circle cx="31" cy="21" r="4"/><line x1="7" y1="29" x2="41" y2="29"/><rect x="13" y="32" width="22" height="4" rx="1"/>',
+wok:'<rect x="7" y="16" width="34" height="22" rx="2"/><path d="M13 22h22c0 6-5 9-11 9s-11-3-11-9z" class="ac" stroke="currentColor"/><line x1="12" y1="38" x2="12" y2="42"/><line x1="36" y1="38" x2="36" y2="42"/>',
+showcase:'<rect x="5" y="15" width="38" height="19" rx="2"/><line x1="5" y1="22" x2="43" y2="22"/><line x1="24" y1="22" x2="24" y2="34"/><line x1="10" y1="34" x2="10" y2="41"/><line x1="38" y1="34" x2="38" y2="41"/>',
+netacase:'<path d="M5 20h38v14H5z"/><path d="M5 20l6-6h26l6 6" class="ac" stroke="currentColor"/><line x1="24" y1="20" x2="24" y2="34"/>',
+roaster:'<rect x="9" y="21" width="30" height="11" rx="5"/><path d="M17 17v-5M24 17v-7M31 17v-5" class="ac" stroke="currentColor"/><line x1="14" y1="32" x2="14" y2="40"/><line x1="34" y1="32" x2="34" y2="40"/>',
+duct:'<path d="M6 20h36l-7 11H13z"/><path d="M18 8v12M30 8v12" class="ac" stroke="currentColor"/><line x1="10" y1="38" x2="38" y2="38" opacity=".5"/>',
+coffee:'<path d="M13 14h20v10a10 10 0 0 1-20 0z"/><path d="M33 16h4a4 4 0 0 1 0 8h-4"/><line x1="10" y1="40" x2="36" y2="40"/><path d="M20 9c-2-2 2-4 0-6M26 9c-2-2 2-4 0-6" class="ac" stroke="currentColor"/>',
+espresso:'<rect x="8" y="8" width="32" height="20" rx="2"/><path d="M18 28v6h12v-6" class="ac" stroke="currentColor"/><path d="M20 34h8v6h-8z"/><line x1="8" y1="42" x2="40" y2="42"/>',
+grinder:'<path d="M16 8h16v10l-4 8v10h-8V26l-4-8z"/><rect x="18" y="36" width="12" height="6" rx="1" class="ac" stroke="currentColor"/>',
+blender:'<path d="M17 6h14l-2 20h-10z"/><rect x="15" y="26" width="18" height="12" rx="2" class="ac" stroke="currentColor"/><line x1="13" y1="42" x2="35" y2="42"/>',
+beer:'<path d="M12 12h18v26a4 4 0 0 1-4 4H16a4 4 0 0 1-4-4z"/><path d="M30 18h5a4 4 0 0 1 0 8h-5"/><path d="M12 19h18" class="ac" stroke="currentColor"/>',
+wine:'<rect x="12" y="6" width="24" height="36" rx="2"/><line x1="12" y1="18" x2="36" y2="18"/><line x1="12" y1="30" x2="36" y2="30"/><line x1="30" y1="12" x2="33" y2="12" class="ac" stroke="currentColor"/>',
+slicer:'<rect x="8" y="26" width="32" height="9" rx="2"/><circle cx="20" cy="17" r="9"/><circle cx="20" cy="17" r="2" class="ac" stroke="currentColor"/><line x1="14" y1="35" x2="14" y2="41"/><line x1="34" y1="35" x2="34" y2="41"/>',
+soft:'<rect x="14" y="6" width="20" height="13" rx="3"/><path d="M18 19h12l-6 21z" class="ac" stroke="currentColor"/>',
+steamer:'<rect x="12" y="18" width="24" height="8" rx="2"/><rect x="12" y="26" width="24" height="8" rx="2"/><path d="M20 14c-3-4 3-6 0-8M28 14c-3-4 3-6 0-8" class="ac" stroke="currentColor"/><line x1="14" y1="34" x2="14" y2="41"/><line x1="34" y1="34" x2="34" y2="41"/>',
+micro:'<rect x="6" y="12" width="36" height="24" rx="2"/><rect x="11" y="17" width="18" height="14" rx="1"/><circle cx="36" cy="20" r="2" class="ac" stroke="currentColor"/><line x1="33" y1="28" x2="39" y2="28"/>',
+salamander:'<rect x="8" y="12" width="32" height="14" rx="2"/><path d="M14 18h20" class="ac" stroke="currentColor"/><line x1="12" y1="26" x2="12" y2="38"/><line x1="36" y1="26" x2="36" y2="38"/><line x1="10" y1="38" x2="38" y2="38"/>',
+oden:'<rect x="8" y="20" width="32" height="12" rx="2"/><line x1="18" y1="20" x2="18" y2="32"/><line x1="30" y1="20" x2="30" y2="32"/><path d="M18 16c-3-4 3-6 0-8" class="ac" stroke="currentColor"/><line x1="12" y1="32" x2="12" y2="40"/><line x1="36" y1="32" x2="36" y2="40"/>',
+ih:'<rect x="7" y="16" width="34" height="21" rx="2"/><circle cx="17" cy="26" r="5"/><circle cx="31" cy="26" r="5"/><path d="M24 12v-4" class="ac" stroke="currentColor"/><line x1="12" y1="37" x2="12" y2="42"/><line x1="36" y1="37" x2="36" y2="42"/>',
+vacuum:'<rect x="7" y="16" width="34" height="18" rx="2"/><rect x="13" y="21" width="18" height="8" rx="1"/><circle cx="36" cy="25" r="2"/>',
+jar:'<path d="M14 18h20v16a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4z"/><path d="M12 18h24" class="ac" stroke="currentColor"/><line x1="24" y1="12" x2="24" y2="18"/>',
+sterilizer:'<rect x="10" y="10" width="28" height="28" rx="2"/><path d="M18 18v12M24 16v14M30 18v12" class="ac" stroke="currentColor"/>',
+stocker:'<rect x="7" y="17" width="34" height="19" rx="2"/><line x1="7" y1="24" x2="41" y2="24"/><line x1="24" y1="27" x2="24" y2="33"/>',
+def:'<rect x="10" y="12" width="28" height="26" rx="2"/><line x1="10" y1="20" x2="38" y2="20"/><line x1="14" y1="38" x2="14" y2="42"/><line x1="34" y1="38" x2="34" y2="42"/>'
+};
+
+function eqIconKey(name){
+  const n = name;
+  /* ▼ 実測リストから追加した機器。既存の判定に引っかからないよう先頭に置く */
+  if (n.includes("ソイルドテーブル")) return "sink1";
+  if (n.includes("キャビネットテーブル")) return "table";
+  if (n.includes("テーブル形冷蔵ショーケース")) return "showcase";
+  if (n.includes("電磁調理器")) return "ih";
+  /* ▲ ここまで */
+  if (n.includes("二槽") || n.includes("三槽")) return "sink2";
+  if (n.includes("シンク")) return "sink1";
+  if (n.includes("手洗")) return "handwash";
+  if (n.includes("殺菌庫")) return "sterilizer";
+  if (n.includes("コールドテーブル")) return "coldtable";
+  if (n.includes("冷凍冷蔵")) return "fridge";
+  if (n.includes("冷凍ストッカー")) return "stocker";
+  if (n.includes("冷凍庫")) return "freezer";
+  if (n.includes("ワインセラー")) return "wine";
+  if (n.includes("冷蔵")) return "fridge";
+  if (n.includes("製氷")) return "ice";
+  if (n.includes("茹で麺") || n.includes("麺茹で") || n.includes("パスタボイラー")) return "noodle";
+  if (n.includes("鋳物コンロ") || n.includes("卓上ガスコンロ")) return "burner";
+  if (n.includes("中華レンジ")) return "wok";
+  if (n.includes("ガスレンジ")) return "range";
+  if (n.includes("フライヤー")) return "fryer";
+  if (n.includes("餃子")) return "gyoza";
+  if (n.includes("おでん")) return "oden";
+  if (n.includes("蒸し器")) return "steamer";
+  if (n.includes("サラマンダー")) return "salamander";
+  if (n.includes("食器洗浄") || n.includes("グラスウォッシャー")) return "washer";
+  if (n.includes("作業台") || n.includes("盛付台")) return "table";
+  if (n.includes("吊戸棚")) return "shelf";
+  if (n.includes("洗米機")) return "rice";
+  if (n.includes("炊飯") || n.includes("シャリロボット")) return "rice";
+  if (n.includes("電子ジャー")) return "jar";
+  if (n.includes("電子レンジ")) return "micro";
+  if (n.includes("オーブン") || n.includes("ピザ窯")) return "oven";
+  if (n.includes("ネタケース")) return "netacase";
+  if (n.includes("ソフトクリーム")) return "soft";
+  if (n.includes("ケース") || n.includes("ショーケース")) return "showcase";
+  if (n.includes("ロースター") || n.includes("焼き台") || n.includes("グリラー")) return "roaster";
+  if (n.includes("ダクト") || n.includes("換気")) return "duct";
+  if (n.includes("エスプレッソ")) return "espresso";
+  if (n.includes("グラインダー")) return "grinder";
+  if (n.includes("ブレンダー")) return "blender";
+  if (n.includes("ビールサーバー") || n.includes("ディスペンサー")) return "beer";
+  if (n.includes("スライサー")) return "slicer";
+  if (n.includes("コーヒー")) return "coffee";
+  if (n.includes("真空包装")) return "vacuum";
+  return "def";
+}
+
+function eqThumb(name){
+  if (EQ_PHOTO[name]){
+    return `<span class="eq-thumb" style="padding:0"><img src="${EQ_PHOTO[name]}" alt="${name}の参考写真" style="width:100%;height:100%;object-fit:cover;display:block"></span>`;
+  }
+  const body = EQ_ICON[eqIconKey(name)] || EQ_ICON.def;
+  return `<span class="eq-thumb"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="${name}の参考イメージ">${body}</svg></span>`;
+}
+
+/* =========================================================
+   アフィリエイト設定
+   ========================================================= */
+const AFFILIATE = {
+  rakutenId: "",
+  mercariLinks: {},
+  tenposParam: "",
+  tenposVia: "direct"
+};
+
+function rakutenAfl(rawUrl){
+  if (!AFFILIATE.rakutenId) return rawUrl;
+  const u = encodeURIComponent(rawUrl);
+  return `https://hb.afl.rakuten.co.jp/hgc/${AFFILIATE.rakutenId}/?pc=${u}&m=${u}`;
+}
+function withParam(url, param){
+  if (!param) return url;
+  return url + (url.includes("?") ? "&" : "?") + param;
+}
+
+function tenposLink(name){
+  if (AFFILIATE.tenposVia === "rakuten"){
+    return rakutenAfl(`https://search.rakuten.co.jp/search/mall/${encodeURIComponent("テンポス 業務用 " + name)}/`);
+  }
+  if (AFFILIATE.tenposVia === "yahoo"){
+    return `https://shopping.yahoo.co.jp/search?p=${encodeURIComponent("テンポス 業務用 " + name)}`;
+  }
+  return withParam(EQUIP_LINKS[name] || `https://www.tenpos.com/search?keyword=${encodeURIComponent(name)}`, AFFILIATE.tenposParam);
+}
+
+const SHOP_SITES = [
+  {name:"テンポスドットコム",short:"テンポス",mult:1.00,stock:"即納・在庫あり",badges:["代引","振込","クレカ"],
+   linkFor: name => tenposLink(name)},
+  {name:"Yahoo!ショッピング",short:"Yahoo!",mult:1.06,stock:"取り寄せ",badges:["クレカ","コンビニ","代引"],
+   linkFor: name => `https://shopping.yahoo.co.jp/search?p=${encodeURIComponent("業務用 中古 " + name)}`},
+  {name:"楽天市場",short:"楽天市場",mult:1.09,stock:"店舗による",badges:["クレカ","振込","代引"],
+   linkFor: name => rakutenAfl(`https://search.rakuten.co.jp/search/mall/${encodeURIComponent("業務用 中古 " + name)}/`)},
+  {name:"メルカリ",short:"メルカリ",mult:0.97,stock:"個人出品",badges:["クレカのみ"],
+   linkFor: name => AFFILIATE.mercariLinks[name] || `https://jp.mercari.com/search?keyword=${encodeURIComponent("業務用 " + name)}`},
+];
+
+/* =========================================================
+   物件エリア(都道府県 → 市区町村)
+   ========================================================= */
+const PREF_CITIES = {
+"北海道":["札幌市中央区","札幌市北区","札幌市東区","札幌市白石区","札幌市豊平区","札幌市南区","札幌市西区","札幌市厚別区","札幌市手稲区","札幌市清田区","函館市","旭川市","釧路市","帯広市","小樽市","苫小牧市","北見市","江別市","千歳市","その他の市町村"],
+"青森県":["青森市","弘前市","八戸市","十和田市","三沢市","むつ市","その他の市町村"],
+"岩手県":["盛岡市","一関市","奥州市","花巻市","北上市","宮古市","その他の市町村"],
+"宮城県":["仙台市青葉区","仙台市宮城野区","仙台市若林区","仙台市太白区","仙台市泉区","石巻市","大崎市","名取市","登米市","その他の市町村"],
+"秋田県":["秋田市","横手市","大仙市","由利本荘市","大館市","その他の市町村"],
+"山形県":["山形市","鶴岡市","酒田市","米沢市","天童市","その他の市町村"],
+"福島県":["福島市","郡山市","いわき市","会津若松市","須賀川市","その他の市町村"],
+"茨城県":["水戸市","つくば市","日立市","ひたちなか市","土浦市","取手市","古河市","その他の市町村"],
+"栃木県":["宇都宮市","小山市","栃木市","足利市","佐野市","那須塩原市","その他の市町村"],
+"群馬県":["前橋市","高崎市","太田市","伊勢崎市","桐生市","その他の市町村"],
+"埼玉県":["さいたま市大宮区","さいたま市浦和区","さいたま市中央区","さいたま市南区","さいたま市北区","川口市","川越市","所沢市","越谷市","草加市","春日部市","上尾市","熊谷市","新座市","朝霞市","戸田市","和光市","その他の市町村"],
+"千葉県":["千葉市中央区","千葉市美浜区","千葉市稲毛区","船橋市","市川市","松戸市","柏市","浦安市","習志野市","流山市","市原市","八千代市","佐倉市","木更津市","その他の市町村"],
+"東京都":["千代田区","中央区","港区","新宿区","文京区","台東区","墨田区","江東区","品川区","目黒区","大田区","世田谷区","渋谷区","中野区","杉並区","豊島区","北区","荒川区","板橋区","練馬区","足立区","葛飾区","江戸川区","八王子市","立川市","武蔵野市","三鷹市","府中市","調布市","町田市","小金井市","日野市","西東京市","国分寺市","その他の市町村"],
+"神奈川県":["横浜市西区","横浜市中区","横浜市神奈川区","横浜市港北区","横浜市鶴見区","横浜市青葉区","横浜市戸塚区","横浜市都筑区","川崎市川崎区","川崎市中原区","川崎市高津区","川崎市宮前区","相模原市中央区","相模原市南区","藤沢市","横須賀市","平塚市","茅ヶ崎市","厚木市","大和市","小田原市","鎌倉市","その他の市町村"],
+"新潟県":["新潟市中央区","新潟市西区","長岡市","上越市","三条市","新発田市","その他の市町村"],
+"富山県":["富山市","高岡市","射水市","砺波市","その他の市町村"],
+"石川県":["金沢市","小松市","白山市","加賀市","七尾市","その他の市町村"],
+"福井県":["福井市","坂井市","越前市","敦賀市","その他の市町村"],
+"山梨県":["甲府市","甲斐市","富士吉田市","南アルプス市","その他の市町村"],
+"長野県":["長野市","松本市","上田市","飯田市","佐久市","諏訪市","その他の市町村"],
+"岐阜県":["岐阜市","大垣市","各務原市","多治見市","高山市","その他の市町村"],
+"静岡県":["静岡市葵区","静岡市駿河区","静岡市清水区","浜松市中央区","浜松市浜名区","沼津市","富士市","三島市","藤枝市","焼津市","その他の市町村"],
+"愛知県":["名古屋市中区","名古屋市中村区","名古屋市東区","名古屋市西区","名古屋市千種区","名古屋市昭和区","名古屋市名東区","名古屋市熱田区","名古屋市北区","豊田市","豊橋市","岡崎市","一宮市","春日井市","安城市","刈谷市","豊川市","その他の市町村"],
+"三重県":["津市","四日市市","鈴鹿市","松阪市","桑名市","伊勢市","その他の市町村"],
+"滋賀県":["大津市","草津市","彦根市","長浜市","東近江市","守山市","その他の市町村"],
+"京都府":["京都市中京区","京都市下京区","京都市東山区","京都市左京区","京都市北区","京都市右京区","京都市南区","京都市伏見区","宇治市","亀岡市","長岡京市","その他の市町村"],
+"大阪府":["大阪市北区","大阪市中央区","大阪市西区","大阪市浪速区","大阪市天王寺区","大阪市淀川区","大阪市阿倍野区","大阪市福島区","大阪市都島区","大阪市城東区","堺市堺区","堺市北区","東大阪市","豊中市","吹田市","枚方市","高槻市","茨木市","八尾市","寝屋川市","岸和田市","その他の市町村"],
+"兵庫県":["神戸市中央区","神戸市灘区","神戸市東灘区","神戸市兵庫区","神戸市北区","神戸市須磨区","姫路市","西宮市","尼崎市","明石市","加古川市","宝塚市","伊丹市","芦屋市","その他の市町村"],
+"奈良県":["奈良市","橿原市","生駒市","大和郡山市","天理市","その他の市町村"],
+"和歌山県":["和歌山市","田辺市","橋本市","海南市","その他の市町村"],
+"鳥取県":["鳥取市","米子市","倉吉市","境港市","その他の市町村"],
+"島根県":["松江市","出雲市","浜田市","益田市","その他の市町村"],
+"岡山県":["岡山市北区","岡山市南区","岡山市中区","倉敷市","津山市","総社市","その他の市町村"],
+"広島県":["広島市中区","広島市南区","広島市西区","広島市東区","広島市安佐南区","福山市","呉市","東広島市","尾道市","その他の市町村"],
+"山口県":["下関市","山口市","宇部市","周南市","岩国市","その他の市町村"],
+"徳島県":["徳島市","阿南市","鳴門市","その他の市町村"],
+"香川県":["高松市","丸亀市","坂出市","観音寺市","その他の市町村"],
+"愛媛県":["松山市","今治市","新居浜市","西条市","四国中央市","その他の市町村"],
+"高知県":["高知市","南国市","四万十市","香南市","その他の市町村"],
+"福岡県":["福岡市中央区","福岡市博多区","福岡市早良区","福岡市南区","福岡市西区","福岡市城南区","福岡市東区","北九州市小倉北区","北九州市八幡西区","北九州市戸畑区","久留米市","飯塚市","大牟田市","春日市","筑紫野市","糟屋郡","その他の市町村"],
+"佐賀県":["佐賀市","唐津市","鳥栖市","伊万里市","その他の市町村"],
+"長崎県":["長崎市","佐世保市","諫早市","大村市","島原市","その他の市町村"],
+"熊本県":["熊本市中央区","熊本市東区","熊本市西区","熊本市北区","八代市","天草市","玉名市","その他の市町村"],
+"大分県":["大分市","別府市","中津市","佐伯市","日田市","その他の市町村"],
+"宮崎県":["宮崎市","都城市","延岡市","日向市","その他の市町村"],
+"鹿児島県":["鹿児島市","霧島市","鹿屋市","薩摩川内市","姶良市","その他の市町村"],
+"沖縄県":["那覇市","沖縄市","浦添市","宜野湾市","うるま市","名護市","豊見城市","石垣市","その他の市町村"]
+};
+
+const PREF_RENT = {
+"東京都":2.9,"神奈川県":2.0,"大阪府":2.0,"京都府":1.8,"愛知県":1.6,"兵庫県":1.6,
+"福岡県":1.5,"埼玉県":1.5,"千葉県":1.5,"広島県":1.4,"北海道":1.3,"宮城県":1.3,
+"静岡県":1.3,"沖縄県":1.3,"滋賀県":1.2,"奈良県":1.2,"岡山県":1.2,"熊本県":1.2
+};
+const rentIndexFor = pref => PREF_RENT[pref] || 1.1;
+const CITY_HOT = ["中央区","北区","港区","新宿区","渋谷区","中区","博多区","中京区","下京区","西区"];
+
+function hashStr(s){
+  let h = 0;
+  for (let i = 0; i < s.length; i++){ h = (h * 31 + s.charCodeAt(i)) >>> 0; }
+  return h;
+}
+function seededRand(seed){
+  let s = seed >>> 0;
+  return () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; };
+}
+
+function shopRowsForItem(name, unitUsed, qty){
+  const baseTotal = unitUsed * qty;
+  const h = hashStr(name);
+  return SHOP_SITES.map((s, i) => {
+    const jitter = 1 + (((h >>> (i * 4)) % 9) - 4) / 200;
+    const price = Math.max(1000, Math.round(baseTotal * s.mult * jitter / 100) * 100);
+    return { shop: s.name, short: s.short, price, stock: s.stock, badges: s.badges, url: s.linkFor(name) };
+  }).sort((a, b) => a.price - b.price);
+}
+
+const yen = v => '¥' + Math.round(v).toLocaleString();
+const man = v => Math.round(v/10000).toLocaleString() + '万円';
+
+/* ---------- サイト別 合計比較 ---------- */
+function siteSummaryBlock(items, catalog){
+  const totals = SHOP_SITES.map(s => ({ name:s.name, short:s.short, total:0 }));
+  items.forEach(it => {
+    const p = catalog[it.name] || {new:100000, used:40000};
+    const rows = shopRowsForItem(it.name, p.used, it.qty);
+    rows.forEach(r => {
+      const t = totals.find(x => x.name === r.shop);
+      if (t) t.total += r.price;
+    });
+  });
+  totals.sort((a,b) => a.total - b.total);
+  const min = totals[0].total, max = totals[totals.length-1].total;
+  const gap = max - min;
+
+  const rows = totals.map((t, i) => {
+    const w = max ? Math.round(t.total / max * 100) : 0;
+    const diff = i === 0 ? '最安' : '+' + yen(t.total - min);
+    return `
+      <div class="ss-row ${i===0?'best':''}">
+        <div class="ss-name">${t.short}<i>${diff}</i></div>
+        <div class="ss-track"><i style="width:${w}%"></i></div>
+        <div class="ss-val">${man(t.total)}</div>
+      </div>`;
+  }).join('');
+
+  return `
+  <div class="site-summary">
+    <div class="ss-head">
+      <b>サイト別 中古合計の比較</b>
+      <span>最安と最高で <b style="color:var(--price)">${yen(gap)}</b> の差</span>
+    </div>
+    ${rows}
+    <div class="ss-foot">全機器を1サイトでまとめ買いした場合の合計目安です。実際は機器ごとに最安のサイトを選ぶと、さらに下がります。送料・搬入設置費は含みません。</div>
+  </div>`;
+}
+
+/* ---------- 機器ごとの価格比較 ---------- */
+function equipmentBlock(o){
+  const hallTag = o.hall ? '<span class="hall-tag">客席側</span>' : '';
+  if (!o.showUsed){
+    return `
+    <div class="kk-item">
+      <div class="kk-main">
+        ${eqThumb(o.name)}
+        <div>
+          <div class="kk-name">${o.name}<span class="qty">${o.qty>1?`×${o.qty}`:'×1'}</span>${hallTag}</div>
+          ${o.spec ? `<div class="kk-spec">${o.spec}</div>` : ''}
+          ${o.note ? `<div class="kk-note">${o.note}</div>` : ''}
+        </div>
+      </div>
+      <div class="kk-price">
+        <div class="kk-line"><span class="l">新品 メーカー参考価格</span><span class="v">${yen(o.unitNew*o.qty)}</span></div>
+      </div>
+    </div>`;
+  }
+
+  const rows = shopRowsForItem(o.name, o.unitUsed, o.qty);
+  const best = rows[0].price;
+  const cells = rows.map((r, i) => `
+    <a class="eq-shop ${i===0?'best':''}" href="${r.url}" target="_blank" rel="sponsored nofollow noopener">
+      ${i===0?'<span class="s-flag">最安</span>':''}
+      <span class="s-name">${r.short}</span>
+      <span class="s-price">${yen(r.price)}</span>
+      <span class="s-stock">${r.stock}</span>
+      <span class="s-diff">${i===0?'&nbsp;':'+'+yen(r.price-best)}</span>
+    </a>`).join('');
+
+  return `
+  <div class="eq-card">
+    <div class="eq-top">
+      ${eqThumb(o.name)}
+      <div class="eq-head">
+        <div class="eq-title">${o.name}<span class="qty">${o.qty>1?`×${o.qty}`:'×1'}</span>${hallTag}</div>
+        <div class="eq-meta">${o.spec || '中古・状態は個体差あり'} ／ 新品参考 <s>${yen(o.unitNew*o.qty)}</s></div>
+      </div>
+    </div>
+    <div class="eq-shops">${cells}</div>
+    ${o.note ? `<div class="eq-note">${o.note}</div>` : ''}
+  </div>`;
+}
+
+function totalRow(newTotal, usedTotal, showUsed, count){
+  return `
+  <div class="kk-total">
+    <div class="t">合計 <span style="font-family:'Noto Sans JP';font-weight:400;font-size:12px;color:var(--sub)">(${count}点)</span></div>
+    <div class="kk-price">
+      ${showUsed ? `
+      <div class="kk-line"><span class="l">中古 合計(目安)</span><span class="v">${yen(usedTotal)}</span></div>
+      <div class="kk-line sub"><span class="l">新品 合計</span><span class="v" style="font-size:14px;color:var(--sub);font-weight:500;font-family:'Noto Sans JP',sans-serif;text-decoration:line-through">${yen(newTotal)}</span></div>
+      ` : `
+      <div class="kk-line"><span class="l">新品 合計</span><span class="v">${yen(newTotal)}</span></div>
+      `}
+    </div>
+  </div>`;
+}
+
+/* =========================================================
+   近隣の飲食店テナント情報
+   ========================================================= */
+const TENANT_TYPES = [{label:"居抜き", cls:"inuki"},{label:"スケルトン", cls:"skel"}];
+const PREV_BIZ = ["ラーメン","カフェ","居酒屋","焼肉","バー","定食・食堂","洋食","中華","寿司"];
+const FLOORS = ["1階","1階","1階","2階","地下1階","2階"];
+const FEATURES = ["路面店","駅近","繁華街","住宅街","オフィス街","商店街","ロードサイド","ビル内"];
+
+function buildTenants(pref, city, needArea, biz){
+  if (!pref || !city) return [];
+  const seed = hashStr(pref + city + biz);
+  const rnd = seededRand(seed);
+  const baseIdx = rentIndexFor(pref) * (CITY_HOT.some(k => city.endsWith(k)) ? 1.25 : 1.0);
+  const needTsubo = needArea * 0.3025;
+
+  const list = [];
+  for (let i = 0; i < 6; i++){
+    const tsubo = Math.max(6, Math.round(needTsubo * (0.7 + rnd() * 0.9)));
+    const idx = baseIdx * (0.85 + rnd() * 0.35);
+    const rent = Math.round(tsubo * idx * 10) / 10;
+    const type = TENANT_TYPES[rnd() < 0.65 ? 0 : 1];
+    const floor = FLOORS[Math.floor(rnd() * FLOORS.length)];
+    const prev = PREV_BIZ[Math.floor(rnd() * PREV_BIZ.length)];
+    const feat = FEATURES[Math.floor(rnd() * FEATURES.length)];
+    const walk = 1 + Math.floor(rnd() * 11);
+    const deposit = Math.round(rent * (4 + Math.floor(rnd() * 7)));
+    const key = type.label === "居抜き" ? Math.round(rent * (6 + rnd() * 14)) : 0;
+    const gas = rnd() < 0.75 ? "都市ガス" : "LP";
+    const elec = rnd() < 0.4 ? "三相200V" : (rnd() < 0.6 ? "200V" : "100V");
+    list.push({id:`${city}-${i+1}`, city, tsubo, rent, type, floor, prev, feat, walk, deposit, key, gas, elec, area: Math.round(tsubo / 0.3025)});
+  }
+  list.sort((a,b) => a.rent - b.rent);
+  return list;
+}
+
+function tenantSearchUrl(pref, city, biz){
+  const q = `${pref}${city} ${biz} 居抜き 店舗物件`;
+  return `https://www.google.com/search?q=${encodeURIComponent(q)}`;
+}
+
+function tenantSliderBlock(pref, city, biz, storeArea, tenants){
+  if (!tenants.length){
+    return `
+    <div class="slider-head"><div class="sh-left"><span class="no">■</span><h3 class="t">近隣の飲食店テナント情報</h3></div></div>
+    <div class="feasible-banner fail" style="margin-bottom:0">
+      物件エリアが未選択です。STEP 4 で都道府県と市区町村を選ぶと、そのエリアのテナント情報を表示します。
+    </div>`;
+  }
+
+  const cards = tenants.map(t => {
+    const fits = t.area >= storeArea * 0.85;
+    return `
+    <div class="t-card">
+      <div class="t-tags">
+        <span class="t-tag ${t.type.cls}">${t.type.label}</span>
+        <span class="t-tag">${t.feat}</span>
+        <span class="t-tag">${t.floor}</span>
+      </div>
+      <div class="t-station">${t.city}／最寄駅 徒歩${t.walk}分</div>
+      <div class="t-rent">${t.rent.toFixed(1)}<small>万円/月</small></div>
+      <div class="t-spec">
+        <div><span class="k">面積</span><span class="v">${t.tsubo}坪（約${t.area}㎡）</span></div>
+        <div><span class="k">坪単価</span><span class="v">${(t.rent/t.tsubo).toFixed(2)}万円</span></div>
+        <div><span class="k">保証金</span><span class="v">${t.deposit}万円</span></div>
+        <div><span class="k">造作譲渡</span><span class="v">${t.key ? t.key+'万円' : 'なし'}</span></div>
+        <div><span class="k">設備</span><span class="v">${t.gas}／${t.elec}</span></div>
+        <div><span class="k">前業態</span><span class="v">${t.type.label==='居抜き' ? t.prev : '—'}</span></div>
+      </div>
+      <div class="t-fit ${fits ? 'ok' : 'ng'}">
+        ${fits
+          ? `ご希望の${storeArea}㎡に対して面積は充足。${t.type.label==='居抜き' ? '前業態が'+t.prev+'のため、厨房設備の一部を再利用できる可能性があります。' : '厨房はゼロから構築する前提です。'}`
+          : `ご希望の${storeArea}㎡に対して面積が不足気味です（約${t.area}㎡）。席数を絞る前提でご検討ください。`}
+      </div>
+      <div class="t-cta"><a href="${tenantSearchUrl(pref, t.city, biz)}" target="_blank" rel="noopener">この条件で物件を探す</a></div>
+    </div>`;
+  }).join('');
+
+  return `
+  <div class="slider-head">
+    <div class="sh-left">
+      <span class="no">■</span>
+      <h3 class="t">${pref}${city}のテナント情報</h3>
+    </div>
+    <div class="slider-nav">
+      <button type="button" id="slide-prev" aria-label="前の物件へ">&#9664;</button>
+      <button type="button" id="slide-next" aria-label="次の物件へ">&#9654;</button>
+    </div>
+  </div>
+  <div class="slider" id="tenant-slider" tabindex="0">${cards}</div>
+  <div class="slider-foot">← 横にスライドすると他の物件を確認できます（${tenants.length}件）。表示中の内容は、選択エリアの坪単価相場と診断結果の必要面積から算出した参考情報です。実在する物件ではありません。</div>`;
+}
+
+/* =========================================================
+   実測リファレンス（実際の厨房設計図面・機器リストから採取）
+   4件すべて、図面の合計欄と転記値の一致を確認済み。
+   ※ 全件カフェ・喫茶業態。他業態への外挿は不可。
+   ※ ガスのkWは図面の集計ルールが一定でない（給湯器を含む図面と含まない図面がある）。
+      内訳がわかるものは併記している。
+   ========================================================= */
+const REF_CASES = [
+  {seats:20, rows:35, units:35,
+   gas:"都市ガス 70.1kW（うち給湯器44.0／調理26.1）",
+   v100:3.714, v200:5.705, p200:5.222,
+   fp:10.29, kitchen:null, floor:null,
+   ice:"IM-35M-2（35kg）",
+   char:"ドリンク主体。コーヒー機器10点（ブルーワー×2・TFサーバー×3・全自動エスプレッソ等）、冷蔵設備5台。加熱はガスフライヤーとガステーブルコンロのみ。スチコンなし"},
+  {seats:30, rows:21, units:22,
+   gas:"なし（オール電化）",
+   v100:3.126, v200:2.8, p200:20.119,
+   fp:7.71, kitchen:null, floor:null,
+   ice:"IM-45M-NA（45kg）",
+   char:"仕込み主体・オール電化。スチコン＋業務用IH3口＋真空包装機＋軟水機＋電解水生成装置。コーヒーマシン1点のみ"},
+  {seats:40, rows:20, units:21,
+   gas:"LPG 34.41kW（給湯器は合計から除外）",
+   v100:3.431, v200:0, p200:11.119,
+   fp:8.56, kitchen:29.59, floor:101.41,
+   ice:"IM-35P（35kg）",
+   char:"ご飯もの。ガス炊飯器＋ガステーブル＋スチコン、加熱の一部は家庭用IH2台。コーヒー抽出機器がリストに1点もない（施主支給の可能性）"},
+  {seats:50, rows:28, units:33,
+   gas:"なし（オール電化）",
+   v100:5.682, v200:15.2, p200:21.13,
+   fp:13.65, kitchen:40, floor:null,
+   ice:"IM-35M-1（35kg）",
+   char:"スチコン2段積み（三相20.2kW＝三相全体の96%）。食洗機・電磁調理器はどちらも単相。エスプレッソマシン＋グラインダー2台"}
+];
+
+/* =========================================================
+   ▼ 業態別の設問定義
+   ========================================================= */
+const BIZ_META = {
+"ラーメン":{
+  hint:"スープの炊き方・席数から、茹で麺機や寸胴用コンロの口数を判定します。",
+  seatHint:"席数から茹で麺機のテボ数・冷蔵設備・製氷機の能力を決めます。",
+  menuLead:"サイドメニューの有無で、追加の加熱機器が変わります。",
+  menuHint:""
+},
+"カフェ":{
+  hint:"抽出スタイル（エスプレッソ/ドリップ）と、店内で焼くかどうかで構成が大きく変わります。",
+  seatHint:"席数から冷蔵設備と製氷機の能力を決めます（アイスドリンク比率を考慮）。※実測4件では、席数と機器点数は相関していませんでした。診断結果の下部に実例との比較を表示します。",
+  menuLead:"フード・焼き菓子の有無で、オーブンや加熱機器の要否が決まります。実測4件でも、構成を決めていたのは席数ではなくここでした。",
+  menuHint:"店内で焼いた菓子・パンを持ち帰り販売する場合、飲食店営業許可とは別に菓子製造業許可が必要になることがあります。"
+},
+"居酒屋":{
+  hint:"焼き物の熱源（ガス/炭）と、刺身・揚げ物の有無で機器の骨格が決まります。",
+  seatHint:"席数から冷蔵・冷凍のストック量、製氷機の能力、作業台の台数を決めます。",
+  menuLead:"品目が多いほど加熱機器が増えます。実際に出す料理だけ選んでください。",
+  menuHint:"刺身を出す場合は、生食用の取扱い（専用まな板・冷蔵温度管理）が必須になります。"
+},
+"焼肉":{
+  hint:"ロースターの方式で排気工事の規模と費用が大きく変わります。客席数＝ロースター台数の目安です。",
+  seatHint:"席数÷4（4人掛け想定）でロースターの台数を算出します。",
+  menuLead:"店内で肉をカットするか、仕込み済みを使うかで機器が変わります。",
+  menuHint:"ロースターは客席側の設備のため、厨房の設置面積の判定からは除外して計算しています。"
+},
+"寿司":{
+  hint:"提供スタイル（カウンター/大衆/持ち帰り）で、ネタケースとシャリまわりの構成が変わります。",
+  seatHint:"席数からシャリの炊飯量・冷蔵設備・製氷機の能力を決めます。",
+  menuLead:"焼き物・揚げ物・持ち帰りの有無で追加機器が決まります。",
+  menuHint:"生食用鮮魚介類を扱うため、温度管理と器具の使い分けが検査の重点になります。"
+},
+"洋食":{
+  hint:"加熱の中心をガスレンジにするか、スチコンにするかで金額が大きく動きます。",
+  seatHint:"席数からレンジの間口・冷蔵設備・作業台の台数を決めます。",
+  menuLead:"パスタ・オーブン料理・仕上げ焼きの有無で機器が変わります。",
+  menuHint:"スチームコンベクションオーブンは三相200Vと給排水が必要な機種が多く、物件側の条件確認が必須です。"
+},
+"テイクアウト":{
+  hint:"販売形態（揚げ物/弁当惣菜/パン・スイーツ）で、必要な許可区分と機器が変わります。",
+  seatHint:"客席がない場合は0でかまいません。冷蔵設備は席数ではなく店内面積から判定します。",
+  menuLead:"作り置き・保温・冷凍のどれを使うかで機器が変わります。",
+  menuHint:"客席がなくても、手洗い設備・シンク・扉付き収納は営業許可の要件になります。"
+},
+"バー":{
+  hint:"氷の使用量とグラス洗浄が中心になる業態です。フードの有無で加熱機器が決まります。",
+  seatHint:"席数と氷の使用量から製氷機の能力を決めます。",
+  menuLead:"フード提供の範囲を選んでください。",
+  menuHint:"深夜0時以降に酒類を提供する場合、警察署への深夜酒類提供飲食店営業開始届が必要です。"
+},
+"定食・食堂":{
+  hint:"ピーク時の提供数から、炊飯量とレンジの間口を判定します。",
+  seatHint:"席数と回転率から、洗浄機・冷蔵設備の必要能力を決めます。",
+  menuLead:"定番の調理法のうち、実際に使うものを選んでください。",
+  menuHint:"ランチのピークに耐えられるかは、炊飯量と洗浄の速度で決まります。"
+},
+"その他":{
+  hint:"業態が固まっていない場合は、これを選んで調理内容から逆算できます。",
+  seatHint:"席数から冷蔵設備・製氷機の能力を決めます。",
+  menuLead:"提供するものによって、追加で必要な機器が変わります。",
+  menuHint:""
+}
+};
+
+const BIZ_EXTRA = {
+"カフェ":{label:"コーヒーの抽出スタイル", hint:"エスプレッソマシンは単相200Vが必要な機種が多く、電源工事の有無に直結します。実測4件では、コーヒー機器が10点の店から1点もない店まで幅がありました。",
+  options:[["espresso","エスプレッソ中心（ラテ・カプチーノ）"],["drip","ドリップ・バッチブリュー中心"],["both","両方そろえる"]]},
+"居酒屋":{label:"焼き物の熱源", hint:"炭火は排気・消防の要求が一段厳しくなります。",
+  options:[["none","焼き物はやらない"],["gas","ガス焼き台"],["charcoal","炭火の焼き台"]]},
+"焼肉":{label:"ロースターの方式", hint:"方式によって排気工事の規模と初期費用が大きく変わります。",
+  options:[["nosmoke","無煙ロースター（下引き・ダクト式）"],["hood","ロースター＋上引きフード"],["shichirin","七輪（炭火）＋フード"]]},
+"寿司":{label:"提供スタイル", hint:"スタイルによってネタケースの間口とシャリの炊き方が変わります。",
+  options:[["counter","カウンター中心（江戸前）"],["casual","大衆・ファミリー向け"],["takeout","持ち帰り中心"]]},
+"洋食":{label:"加熱の中心", hint:"スチコン中心は初期費用が上がる代わりに、オペレーションの人手を減らせます。",
+  options:[["range","ガスレンジ中心"],["steam","スチームコンベクションオーブン中心"]]},
+"テイクアウト":{label:"販売形態", hint:"許可区分（飲食店営業／そうざい製造業／菓子製造業）の判断材料になります。",
+  options:[["fry","揚げ物・惣菜中心"],["bento","弁当・ご飯もの中心"],["sweets","パン・スイーツ中心"]]},
+"バー":{label:"店のスタイル", hint:"ダイニングバーは実質的に厨房が必要になります。",
+  options:[["cocktail","ショット・カクテル中心"],["beerwine","ビール・ワイン中心"],["dining","ダイニングバー（料理も出す）"]]},
+"定食・食堂":{label:"ピーク時の提供数（1時間あたり）", hint:"炊飯能力とレンジの間口を決める最大の要因です。",
+  options:[["s","〜30食"],["m","〜60食"],["l","60食以上"]]}
+};
+
+const BIZ_CHIPS = {
+"カフェ":[
+  {v:"bakery",  l:"パン・焼き菓子を店内で焼く"},
+  {v:"light_meal", l:"パスタ・軽食などのフードあり"},
+  {v:"steam_conv", l:"スチームコンベクションオーブンを導入する"},
+  {v:"ih",      l:"加熱は電気（IH）にする"},
+  {v:"dessert", l:"ケーキ・デザートのショーケース販売"},
+  {v:"soft",    l:"ソフトクリーム提供"},
+  {v:"smoothie",l:"スムージー・フラペチーノ提供"},
+  {v:"alcohol", l:"アルコール提供あり"},
+  {v:"takeout", l:"テイクアウト販売あり"},
+  {v:"dishwasher", l:"食器洗浄機を設置する", d:true}
+],
+"居酒屋":[
+  {v:"sashimi", l:"刺身・生食の提供あり"},
+  {v:"fry",     l:"揚げ物あり", d:true},
+  {v:"stirfry", l:"炒め物あり"},
+  {v:"oden",    l:"おでん・煮込みあり"},
+  {v:"rice",    l:"ご飯もの・〆の飯あり", d:true},
+  {v:"draft_beer", l:"生ビールあり", d:true},
+  {v:"dessert", l:"アイス・デザート提供"},
+  {v:"dishwasher", l:"食器洗浄機を設置する", d:true}
+],
+"焼肉":[
+  {v:"meat_slice", l:"店内で肉をカット・スライスする", d:true},
+  {v:"aging",   l:"熟成・仕込みの在庫を多めに持つ"},
+  {v:"rice",    l:"ご飯・ビビンバあり", d:true},
+  {v:"soup",    l:"スープ・チゲあり", d:true},
+  {v:"draft_beer", l:"生ビールあり", d:true},
+  {v:"dessert", l:"アイス・デザート提供"},
+  {v:"dishwasher", l:"食器洗浄機を設置する", d:true}
+],
+"寿司":[
+  {v:"robot",   l:"シャリロボットを導入する"},
+  {v:"grill",   l:"焼き物・炙りあり", d:true},
+  {v:"fry",     l:"揚げ物あり"},
+  {v:"takeout", l:"持ち帰り・出前あり"},
+  {v:"draft_beer", l:"生ビールあり"},
+  {v:"dessert", l:"アイス・デザート提供"},
+  {v:"dishwasher", l:"食器洗浄機を設置する"}
+],
+"洋食":[
+  {v:"pasta",   l:"パスタあり", d:true},
+  {v:"fry",     l:"揚げ物あり", d:true},
+  {v:"oven_bake", l:"オーブン料理あり", d:true},
+  {v:"salamander", l:"グラタン・仕上げ焼きあり"},
+  {v:"sous_vide", l:"低温調理・作り置きの仕込みあり"},
+  {v:"wine",    l:"ワイン提供あり"},
+  {v:"dessert", l:"デザート提供"},
+  {v:"dishwasher", l:"食器洗浄機を設置する", d:true}
+],
+"テイクアウト":[
+  {v:"fry",     l:"揚げ物あり", d:true},
+  {v:"hot_case",l:"温かい状態で陳列する（温蔵ケース）"},
+  {v:"rice",    l:"ご飯もの・弁当あり"},
+  {v:"grill",   l:"焼き物あり"},
+  {v:"vac",     l:"真空パック・作り置きあり"},
+  {v:"freezer_stock", l:"冷凍食材の在庫を持つ", d:true},
+  {v:"drink",   l:"ドリンク販売あり"}
+],
+"バー":[
+  {v:"draft_beer", l:"生ビールあり", d:true},
+  {v:"wine",    l:"ワインの品揃えあり"},
+  {v:"food",    l:"簡単なフードを出す", d:true},
+  {v:"fry_light", l:"軽い揚げ物を出す"},
+  {v:"ice_heavy", l:"ロックアイス等、氷を大量に使う"},
+  {v:"dessert", l:"アイス・デザート提供"},
+  {v:"dishwasher", l:"食器洗浄機も設置する"}
+],
+"定食・食堂":[
+  {v:"fry",     l:"揚げ物あり", d:true},
+  {v:"grill_fish", l:"焼き魚あり", d:true},
+  {v:"steam",   l:"蒸し物・茶碗蒸しあり"},
+  {v:"stirfry", l:"炒め物あり"},
+  {v:"noodle",  l:"麺類あり"},
+  {v:"draft_beer", l:"生ビールあり"},
+  {v:"dessert", l:"アイス・デザート提供"},
+  {v:"dishwasher", l:"食器洗浄機を設置する", d:true}
+],
+"その他":[
+  {v:"noodle",  l:"麺茹であり"},
+  {v:"soup",    l:"スープ仕込みあり"},
+  {v:"fry",     l:"揚げ物あり"},
+  {v:"stirfry", l:"炒め物あり"},
+  {v:"gyoza",   l:"餃子あり"},
+  {v:"dessert", l:"アイス・デザート提供"},
+  {v:"dishwasher", l:"食器洗浄機を設置する"}
+]
+};
+
+/* =========================================================
+   ▼ 共通ヘルパー
+   ========================================================= */
+function mkAdder(items){
+  return (name, qty, note, hall) => {
+    qty = qty || 1;
+    const isHall = hall === true || !!(CATALOG[name] && CATALOG[name].hallDefault);
+    const ex = items.find(i => i.name === name && i.hall === isHall);
+    if (ex){ ex.qty += qty; if (note && !ex.note) ex.note = note; return; }
+    items.push({name, qty, note: note || "", hall: isHall});
+  };
+}
+
+function coldTier(add, seats, log){
+  if (seats <= 10){ add("コールドテーブル1200",1,"客数が少ないため、作業台兼用の台下冷蔵1台でまかなえる想定です。");
+    log && log.push(`<b>${seats}席</b> → 台下冷蔵（コールドテーブル）1台のみ。ストックは小分け仕入れ前提。`); }
+  else if (seats <= 20){ add("コールドテーブル1200",1); add("縦型冷凍冷蔵庫750",1,"当日仕込み分は台下、ストックは縦型で分けます。");
+    log && log.push(`<b>${seats}席</b> → 台下冷蔵1台＋縦型冷凍冷蔵庫（750mm）1台。`); }
+  else if (seats <= 30){ add("コールドテーブル1200",1); add("縦型冷凍冷蔵庫1200",1);
+    log && log.push(`<b>${seats}席</b> → 台下冷蔵1台＋縦型（1200mm）1台にサイズアップ。`); }
+  else { add("コールドテーブル1200",2); add("縦型冷凍冷蔵庫1200",1);
+    log && log.push(`<b>${seats}席</b> → 台下冷蔵2台＋縦型（1200mm）1台。仕込み量が増えるため冷蔵を分散。`); }
+}
+
+function iceName(seats, boost){
+  let t = seats <= 15 ? 25 : seats <= 20 ? 35 : 45;
+  if (boost) t = t === 25 ? 35 : t === 35 ? 45 : 65;
+  return `製氷機${t}kg`;
+}
+
+function washSet(add, flags, log){
+  const sinkNote = flags.dishwasher
+    ? "二槽シンクの1槽分は食器洗浄機で対応する想定です。食器洗浄機を1槽として扱えるかは地域差があるため、必ず所轄保健所にご確認ください。"
+    : "保健所によっては三槽シンクが必要な場合があります。必ず所轄保健所にご確認ください。";
+  add("二槽シンク",1,sinkNote);
+  add("手洗い器",1,"保健所基準で必須の手洗い設備です。");
+  add("吊戸棚",1,"扉付き収納のため保健所検査で必須とされる場合があります。");
+  if (flags.dishwasher){ add("食器洗浄機",1); log && log.push("<b>食器洗浄機あり</b> → シンクは二槽で計算（1槽相当を洗浄機で代替する想定）。"); }
+}
+
+function finalize(items, storeArea, checklist, logic, catalog){
+  catalog = catalog || CATALOG;
+  let newTotal = 0, usedTotal = 0, footprint = 0;
+  items.forEach(it => {
+    const p = catalog[it.name] || {new:100000, used:40000, w:600, d:600};
+    newTotal  += p.new  * it.qty;
+    usedTotal += p.used * it.qty;
+    if (!it.hall) footprint += ((p.w||0) * (p.d||0) / 1e6) * it.qty;
+  });
+  const kitchenArea = storeArea / 3;
+  const installLimit = kitchenArea * (2/3);
+  return { items, newTotal, usedTotal, footprint, kitchenArea, installLimit,
+           feasible: footprint <= installLimit, checklist, logic };
+}
+
+function commonChecklist(gas, elec, commercial){
+  const u = LAST_UTIL || {};
+  const list = [
+    "厨房内の総熱量が10,000kcal/hを超える場合、消防法上の自動消火設備等の対象になり得ます。最終確認は所轄消防署へ。",
+    "シンクは二槽が標準ですが、一部保健所は三槽シンクを指定します。食器洗浄機がある場合は1槽として扱えるか要相談。",
+    `ガス種（${gas}）・電気（${elec}）が選定機器の仕様と合うかご確認ください。`
+  ];
+
+  if (u.gas === "LPG") list.push("LPGは都市ガスと器具の仕様（ノズル・調整器）が異なります。中古機器を買う場合は、必ずガス種を指定して購入してください（後からの仕様変更ができない機種もあります）。");
+  if (u.gas === "なし"){
+    list.push("ガスを使わない前提のため、加熱はすべて電気（IH・電気式スチコン等）になります。実測例では、オール電化のカフェ厨房の三相200Vは20.1kW／21.1kWでした。物件の動力の契約容量が足りるかを最優先で確認してください。");
+  } else if (u.gasUnknown || !u.gasKw){
+    list.push("ガスの容量（kW）が未確認です。寸胴用の鋳物コンロ・フライヤー・レンジは同時使用でメーターの能力を超えることがあり、超える場合はメーターの号数変更や引込工事が必要になります。物件契約前の確認をおすすめします。");
+  } else {
+    list.push(`ガス容量は「${u.gasKw}kW」で申告いただいています。選定機器のガス消費量の合計がこの範囲に収まるかは、機器ごとの実消費量の積み上げで判定する必要があります。なお図面の合計欄は給湯器を含むものと含まないものがあり（実測例では合計70.1kWのうち44.0kWが給湯器）、他社の見積もりと比べる際は集計範囲を揃えてください。`);
+  }
+
+  if (u.elecUnknown || (!u.light && !u.power)) list.push("電気の引込が未確認です。厨房機器は電灯（単相）と動力（三相200V）で回路が分かれます。物件の引込状況によっては、分電盤・キュービクルの増設が発生します。");
+  else if (!u.power) list.push("三相200V（動力）の引込がない前提で計算しています。スチームコンベクションオーブン・大型の食器洗浄機・製氷機など、動力を前提とする機種を選ぶ場合は、動力の引込工事（数十万円規模になることがあります）が別途必要です。");
+  if (u.power && !u.powerKw) list.push("動力の容量（kW）が未確認です。契約容量を超えると機器が同時に動きません。契約前に電力会社・管理会社へご確認ください。");
+
+  if (commercial) list.push("商業施設内への出店は、館側の排気能力・熱源制限・搬入経路により、機器の方式や寸法が指定される場合があります。");
+  return list;
+}
+
+/* =========================================================
+   ▼ ラーメン診断ロジック
+   ========================================================= */
+function calcRamen(seats, storeArea, soupSource, flags, commercial, budget, usedMode, gas, elec) {
+  const items = [];
+  const add = mkAdder(items);
+  const logic = [];
+
+  const sinkNote = flags.food_washer
+    ? "二槽シンクの1槽分は食器洗浄機で対応する想定です。食器洗浄機を1槽として扱えるかは地域差があるため、必ず所轄保健所にご確認ください。"
+    : "保健所によっては三槽シンクが必要な場合があります。必ず所轄保健所にご確認ください。";
+  add("二槽シンク", 1, sinkNote);
+  if (flags.food_washer) add("食器洗浄機", 1);
+  add("手洗い器", 1, "保健所基準で必須の手洗い設備です。");
+  add("作業台", 1);
+  add("吊戸棚", 1, "扉付き収納のため保健所検査で必須とされる場合があります。");
+
+  coldTier(add, seats, logic);
+
+  if (seats <= 15){ add("茹で麺機6テボ",1); logic.push(`<b>${seats}席</b> → 茹で麺機は6テボで回る想定。`); }
+  else if (seats <= 30){ add("茹で麺機9テボ",1); logic.push(`<b>${seats}席</b> → 茹で麺機は9テボへ。`); }
+  else { add("茹で麺機9テボ",1); add("茹で麺機6テボ",1); logic.push(`<b>${seats}席</b> → ピークの同時茹で数が足りないため、9テボ＋6テボの2台構成。`); }
+
+  const boost = !!flags.alcohol;
+  const ice = iceName(seats, boost);
+  add(ice, 1);
+  logic.push(`製氷機は <b>${ice.replace("製氷機","")}</b> を選定${boost ? "（アルコール提供があるため1段階アップ）" : ""}。`);
+
+  if (flags.charshu_house){ add("鋳物コンロ3口",1,"寸胴用の高火力バーナーです。"); logic.push("<b>チャーシューも店内調理</b> → 寸胴＋煮豚で口数が足りないため、鋳物コンロは3口。"); }
+  else if (soupSource === 'store'){ add("鋳物コンロ2口",1,"寸胴用の高火力バーナーです。"); logic.push("<b>スープ店炊き</b> → 寸胴用に鋳物コンロ2口。"); }
+  else { add("鋳物コンロ1口",1,"寸胴用の高火力バーナーです。"); logic.push("<b>スープ仕入れ</b> → 温めるだけのため鋳物コンロ1口で足ります。"); }
+
+  if (flags.gyoza) add("餃子焼器",1);
+  if (flags.chahan) add("中華レンジ",1);
+  if (flags.karaage) add("フライヤー",1);
+  if (flags.rice) {
+    if (seats <= 20){ add("炊飯器(業務用・1升)",2); logic.push("<b>ご飯あり</b>＋小規模 → 1升炊きを2台で回すほうが、切らさず省スペース。"); }
+    else { add("炊飯器(業務用・3升)",1); add("電子ジャー",1); logic.push("<b>ご飯あり</b>＋中規模以上 → 3升炊き＋保温用の電子ジャー。"); }
+  }
+  if (flags.dessert) add("小型冷凍ストッカー",1);
+
+  const checklist = commonChecklist(gas, elec, commercial);
+  checklist.push("寸胴を長時間炊く場合、換気能力（フード・ダクト）とグリスフィルターの清掃計画も確認しておくと安全です。");
+
+  return finalize(items, storeArea, checklist, logic, RAMEN_CATALOG);
+}
+
+/* =========================================================
+   ▼ ラーメン以外の業態別ロジック
+   ========================================================= */
+const BIZ_CALC = {
+
+/* ---------------- カフェ ---------------- */
+"カフェ": (ctx) => {
+  const items = []; const add = mkAdder(items); const logic = [];
+  const f = ctx.flags, seats = ctx.seats;
+  const noGas = (LAST_UTIL && LAST_UTIL.gas === "なし") || !!f.ih;
+
+  washSet(add, f, logic);
+  add("作業台", 1);
+
+  /* ▼ 実測4件（カフェ・喫茶）との突き合わせで追加した標準構成 */
+  add("キャビネットテーブル", 1, "扉付き収納を兼ねた作業台。保健所の求める扉付き収納にもなります。");
+  add("テーブル形冷蔵ショーケース", 1, "ケーキ・ボトル類の冷蔵陳列。カウンター前面に置く前提です。");
+  if (f.dishwasher){
+    add("ソイルドテーブル", 1, "下げた食器を受ける台。ドアタイプの食洗機にはほぼ必須です。アンダーカウンター型なら不要な場合があります。");
+  }
+  logic.push("実際の厨房設計図面4件（カフェ・喫茶）と突き合わせ、<b>キャビネットテーブル（4件すべてに存在）・テーブル形冷蔵ショーケース（4件中3件）</b>を標準構成に加えています。");
+  /* ▲ ここまで */
+
+  coldTier(add, seats, logic);
+
+  const boost = !!(f.alcohol || f.smoothie || f.soft);
+  const ice = iceName(seats, boost);
+  add(ice, 1, "アイスドリンクの比率が高い業態のため、能力に余裕を持たせています。");
+  logic.push(`製氷機は <b>${ice.replace("製氷機","")}</b>${boost ? "（アイスドリンク・アルコールが多いため1段階アップ）" : ""}。実測3件では20席→35kg・30席→45kg・40席→35kgで、40席のみ席数と逆行していました。`);
+
+  if (ctx.extra === "espresso" || ctx.extra === "both"){
+    add("エスプレッソマシン2グループ", 1, "単相200Vが必要な機種が主流です。電源容量を物件側で確認してください。");
+    add("コーヒーグラインダー", 1, "エスプレッソは挽き目の調整が命のため、専用グラインダーは実質必須です。全自動タイプのマシンを選ぶ場合はグラインダー内蔵のため不要です（実測1件がこの構成でした）。");
+    logic.push("<b>エスプレッソ中心</b> → 2グループのマシン＋専用グラインダー。ここが構成上いちばん高い買い物になります。");
+  }
+  if (ctx.extra === "drip" || ctx.extra === "both"){
+    add("コーヒーマシン", 1, "バッチブリュー（大量抽出）向けの業務用マシンです。");
+    logic.push("<b>ドリップ中心</b> → バッチブリュー用のコーヒーマシン。回転の速い店ほど効きます。");
+  }
+  if (f.smoothie) add("ブレンダー(ミキサー)", 1);
+  if (f.steam_conv){
+    add("スチームコンベクションオーブン", 1, "三相200Vと給排水が必要な機種が主流です。実測4件中3件がスチコンを持ち、いずれも三相容量の大半をこの1台が占めていました。");
+    logic.push("<b>スチコンを導入</b> → 三相200Vの容量がこれ1台で5.9〜20.2kW動きます。物件の動力の引込・契約容量の確認が先です。");
+  }
+  if (f.bakery){
+    add("コンベクションオーブン", 1, "焼成用。天板サイズと電源（三相200Vの機種あり）を確認してください。");
+    add("小型冷凍ストッカー", 1, "冷凍生地のストック用。");
+    logic.push("<b>店内で焼く</b> → コンベクションオーブン＋冷凍生地用ストッカー。持ち帰り販売なら菓子製造業許可の確認を。");
+  }
+  if (f.light_meal){
+    if (noGas){
+      add("電磁調理器(卓上IH)", 1, "ガスを使わない前提のため、加熱はIHで構成しています。三相200Vの機種が主流で、1口あたり3kW前後を見込みます。");
+      logic.push("<b>フードあり＋ガスなし（オール電化）</b> → 卓上コンロではなく電磁調理器。実測のオール電化店は3口のIHで三相9.0kWを使っていました。");
+    } else {
+      add("卓上ガスコンロ2口", 1);
+      logic.push("<b>フードあり</b> → 卓上コンロ2口＋業務用レンジ。本格的な調理をするならガスレンジへの格上げを検討。");
+    }
+    add("電子レンジ(業務用)", 1);
+  }
+  if (f.dessert) add("カウンター冷蔵ショーケース", 1, "ケーキ等の対面販売用。");
+  if (f.soft) add("ソフトクリームフリーザー", 1);
+  if (f.takeout) add("包装・盛付台", 1, "テイクアウトの詰め・包装は動線を分けたほうが回ります。");
+  if (!f.dishwasher && f.alcohol){
+    add("グラスウォッシャー", 1, "食器洗浄機を置かない場合でも、グラス専用機があると回転が上がります。");
+  }
+
+  const checklist = commonChecklist(ctx.gas, ctx.elec, ctx.commercial);
+  if (f.bakery) checklist.push("店内で製造した菓子・パンを持ち帰り販売する場合、飲食店営業許可とは別に「菓子製造業許可」が必要になることがあります。");
+  checklist.push("エスプレッソマシン・製氷機は給排水と電源容量の制約が大きい機器です。物件契約前にカウンター位置と合わせて確認を。");
+  checklist.push("本ツールは軟水機・浄水器・電解水生成装置などの水処理機器と、棚（メトロマックス等）を計上していません。実測4件中3件に軟水機か浄水器が入っていたため、実際の機器点数と床面積はこの診断より多くなる可能性が高いです。");
+  return finalize(items, ctx.storeArea, checklist, logic);
+},
+
+/* ---------------- 居酒屋 ---------------- */
+"居酒屋": (ctx) => {
+  const items = []; const add = mkAdder(items); const logic = [];
+  const f = ctx.flags, seats = ctx.seats;
+
+  washSet(add, f, logic);
+  add("作業台", seats > 40 ? 2 : 1);
+  if (seats > 40) logic.push(`<b>${seats}席</b> → 仕込みと盛付を分けるため作業台を2台に。`);
+
+  coldTier(add, seats, logic);
+  if (seats > 40){ add("縦型冷凍庫1200", 1, "品目数が多い業態のため、冷凍ストックを独立させます。"); }
+
+  const ice = iceName(seats, true);
+  add(ice, 1);
+  logic.push(`製氷機は <b>${ice.replace("製氷機","")}</b>（酒類中心のため常に1段階アップで計算）。`);
+
+  if (seats > 30){ add("ガスレンジ1200", 1, "同時進行の品数が多いため間口を広げています。"); logic.push(`<b>${seats}席</b> → ガスレンジは1200mmへ。`); }
+  else { add("ガスレンジ", 1); }
+
+  if (ctx.extra === "gas"){ add("焼き台", 1, "串焼き・焼き物用。"); logic.push("<b>ガス焼き台</b> → 標準の焼き台を1台。"); }
+  else if (ctx.extra === "charcoal"){
+    add("焼き台", 1, "炭火用の台。排気は上引きフード＋ダクトの強化が前提です。");
+    add("換気設備(ダクト)", 1, "炭火は煙と輻射熱が大きく、排気能力の増強がほぼ必須です。");
+    logic.push("<b>炭火</b> → 焼き台に加えて排気（ダクト）の増強を計上。消防・ビル側の条件確認が必要です。");
+  }
+  if (f.fry){
+    const q = seats > 40 ? 2 : 1;
+    add("フライヤー", q);
+    if (q > 1) logic.push(`<b>揚げ物あり</b>＋${seats}席 → ピークで油温が落ちるため、フライヤーは2槽。`);
+  }
+  if (f.stirfry) add("中華レンジ", 1);
+  if (f.sashimi){
+    add("ネタケース", 1, "刺身の対面提供・鮮度管理用。");
+    add("包丁まな板殺菌庫", 1, "生食を扱うため、器具の使い分けと殺菌保管が重要です。");
+    logic.push("<b>刺身あり</b> → ネタケース＋殺菌庫。生食用の温度管理が検査の重点になります。");
+  }
+  if (f.oden) add("おでん鍋", 1);
+  if (f.draft_beer){
+    add("生ビールサーバー", 1);
+    add("グラスウォッシャー", 1, "ジョッキの回転が速いため、食器洗浄機とは別に置くのが定石です。");
+    logic.push("<b>生ビールあり</b> → サーバー＋グラスウォッシャー。ジョッキの回転はここで決まります。");
+  }
+  if (f.rice){
+    if (seats <= 20) add("炊飯器(業務用・1升)", 2);
+    else { add("炊飯器(業務用・3升)", 1); add("電子ジャー", 1); }
+  }
+  if (f.dessert) add("小型冷凍ストッカー", 1);
+
+  const checklist = commonChecklist(ctx.gas, ctx.elec, ctx.commercial);
+  checklist.push("深夜0時以降も酒類をメインに提供する場合、所轄警察署への「深夜酒類提供飲食店営業開始届」が必要です。");
+  if (f.sashimi) checklist.push("刺身などの生食提供は、専用のまな板・包丁の使い分けと冷蔵温度の記録が求められます。");
+  if (ctx.extra === "charcoal") checklist.push("炭火使用は、火気使用設備の届出・不燃材の仕様・排気経路について消防と管理会社の双方の確認が必要です。");
+  return finalize(items, ctx.storeArea, checklist, logic);
+},
+
+/* ---------------- 焼肉 ---------------- */
+"焼肉": (ctx) => {
+  const items = []; const add = mkAdder(items); const logic = [];
+  const f = ctx.flags, seats = ctx.seats;
+
+  const roasters = Math.max(1, Math.ceil(seats / 4));
+  add("焼肉ロースター", roasters, "客席側の設備のため、厨房の設置面積の判定からは除外しています。", true);
+  logic.push(`<b>${seats}席 ÷ 4人掛け</b> → ロースターは <b>${roasters}台</b>。客席側設備のため厨房面積の判定からは外しています。`);
+
+  if (ctx.extra === "nosmoke"){
+    add("無煙ロースター用ダクト", 1, "各席から吸い込む下引き方式。床下・ピットの造作が伴い、内装工事側の費用も大きくなります。");
+    logic.push("<b>無煙ロースター（下引き）</b> → 専用ダクトを計上。初期費用は上がりますが、客席の煙・臭いは最も抑えられます。");
+  } else if (ctx.extra === "hood"){
+    add("換気設備(ダクト)", 1, "上引きフード方式。造作は軽い一方、煙と臭いは残りやすくなります。");
+    logic.push("<b>上引きフード</b> → 標準のダクトを計上。工事は軽めですが、客席の煙対策は弱くなります。");
+  } else {
+    add("換気設備(ダクト)", 1, "炭火用の排気。煙・輻射熱ともに大きいため、能力に余裕が必要です。");
+    logic.push("<b>七輪（炭火）</b> → 排気の増強が前提。着火場所と消火の運用も設計に含めてください。");
+  }
+
+  washSet(add, f, logic);
+  add("作業台", 2, "肉の仕込みと、サイド・盛付の動線を分ける前提です。");
+  coldTier(add, seats, logic);
+  if (seats >= 20){ add("縦型冷凍庫1200", 1, "肉のストック用。焼肉は仕入れロットが大きくなるため独立させます。");
+    logic.push(`<b>${seats}席</b> → 肉のストック用に縦型冷凍庫（1200mm）を独立で1台。`); }
+
+  const ice = iceName(seats, !!f.draft_beer);
+  add(ice, 1);
+
+  if (f.meat_slice){
+    add("ミートスライサー", 1, "店内カットの要。刃の洗浄・分解清掃の動線も確保してください。");
+    logic.push("<b>店内カット</b> → ミートスライサー。仕込み用の作業台とセットで考える機器です。");
+  }
+  if (f.aging){
+    add("真空包装機", 1, "仕込んだ肉の小分け・保存用。");
+    add("縦型冷凍冷蔵庫1200", 1, "熟成・仕込みの在庫を持つため、冷蔵を増設します。");
+    logic.push("<b>在庫を多めに持つ</b> → 真空包装機＋冷蔵の増設。");
+  }
+  if (f.soup) add("鋳物コンロ2口", 1, "スープ・チゲの寸胴用。");
+  if (f.rice){
+    if (seats > 30){ add("炊飯器(業務用・3升)", 1); add("電子ジャー", 1); }
+    else add("炊飯器(業務用・1升)", 2);
+  }
+  if (f.draft_beer){ add("生ビールサーバー", 1); add("グラスウォッシャー", 1); }
+  if (f.dessert) add("小型冷凍ストッカー", 1);
+
+  const checklist = commonChecklist(ctx.gas, ctx.elec, ctx.commercial);
+  checklist.push("ロースターの排気は、ビル・商業施設側の排気容量と経路に依存します。契約前に必ず確認してください（後から方式変更は高額になります）。");
+  checklist.push("生食用食肉（ユッケ・レバー等）の提供には、専用設備・器具と加工基準の適合が必要です。");
+  if (ctx.extra === "shichirin") checklist.push("炭火は火気使用設備の届出と、消火・灰の処理の運用計画が必要です。");
+  return finalize(items, ctx.storeArea, checklist, logic);
+},
+
+/* ---------------- 寿司 ---------------- */
+"寿司": (ctx) => {
+  const items = []; const add = mkAdder(items); const logic = [];
+  const f = ctx.flags, seats = ctx.seats;
+
+  add("ネタケース", 1, "カウンターの顔になる設備。間口は席数と品数から決めます。");
+  add("包丁まな板殺菌庫", 1, "生食用の器具管理。寿司業態では実質必須と考えてください。");
+  washSet(add, f, logic);
+  add("手洗い器", 1, "生食を扱うため、調理場と客席側で手洗いを分ける想定の2台目です。");
+  add("作業台", 1);
+  logic.push("<b>生食中心</b> → 手洗い2箇所＋殺菌庫。ここは検査で必ず見られます。");
+
+  coldTier(add, seats, logic);
+  if (seats >= 20){ add("縦型冷凍庫1200", 1, "冷凍マグロ等のストック用。"); }
+
+  add("シャリ炊飯器", 1);
+  if (f.robot){ add("シャリロボット", 1, "人手を減らせる代わりに初期費用が跳ねます。回転数が見込める店向けです。");
+    logic.push("<b>シャリロボット</b> → 握りの人手を削減。大衆・回転系なら回収しやすい投資です。"); }
+  if (seats > 20){ add("洗米機", 1, "シャリの量が増えると、洗米の手間がピークの足を引っ張ります。");
+    logic.push(`<b>${seats}席</b> → 洗米機を追加。シャリの供給が滞ると全体が止まります。`); }
+  add("電子ジャー", 1, "シャリの保温用。");
+
+  const ice = iceName(seats, true);
+  add(ice, 1, "ネタの保冷にも使うため、能力に余裕を見ています。");
+
+  if (ctx.extra === "counter") logic.push("<b>カウンター中心</b> → ネタケースを主役に、仕込みは少量多品種の前提。");
+  if (ctx.extra === "casual"){ add("コールドテーブル1500", 1, "品数と回転が多いため、台下冷蔵を広げます。");
+    logic.push("<b>大衆・ファミリー</b> → 回転が速いため台下冷蔵を1500mmに拡張。"); }
+  if (ctx.extra === "takeout" || f.takeout){
+    add("包装・盛付台", 1, "折詰・パック詰め用。");
+    logic.push("<b>持ち帰りあり</b> → 包装専用の台。客席用の作業台と兼用にすると衛生面で不利です。");
+  }
+  if (f.grill) add("魚焼きグリラー", 1, "焼き物・炙り用。");
+  if (f.fry) add("フライヤー", 1);
+  if (f.draft_beer) add("生ビールサーバー", 1);
+  if (f.dessert) add("小型冷凍ストッカー", 1);
+
+  const checklist = commonChecklist(ctx.gas, ctx.elec, ctx.commercial);
+  checklist.push("生食用鮮魚介類の取扱いは、冷蔵の温度管理・器具の使い分け・記録が重点確認事項になります。");
+  checklist.push("ふぐを扱う場合は、都道府県ごとのふぐ処理者の資格・届出が必要です。");
+  return finalize(items, ctx.storeArea, checklist, logic);
+},
+
+/* ---------------- 洋食 ---------------- */
+"洋食": (ctx) => {
+  const items = []; const add = mkAdder(items); const logic = [];
+  const f = ctx.flags, seats = ctx.seats;
+
+  washSet(add, f, logic);
+  add("作業台", seats > 30 ? 2 : 1);
+  coldTier(add, seats, logic);
+  add(iceName(seats, false), 1);
+
+  if (seats > 30){ add("ガスレンジ1200", 1, "ソース類の同時進行が多いため間口を確保します。");
+    logic.push(`<b>${seats}席</b> → ガスレンジは1200mm。口数が足りないとピークで詰まります。`); }
+  else add("ガスレンジ", 1);
+
+  if (ctx.extra === "steam"){
+    add("スチームコンベクションオーブン", 1, "三相200Vと給排水が必要な機種が主流です。物件条件の確認が必須。");
+    logic.push("<b>スチコン中心</b> → 初期費用は上がりますが、仕込みの標準化と人手削減に直結します。");
+  } else if (f.oven_bake){
+    add("コンベクションオーブン", 1);
+    logic.push("<b>オーブン料理あり</b>＋ガスレンジ中心 → コンベクションオーブンを1台。");
+  }
+  if (f.pasta){ add("パスタボイラー", 1, "茹で置きせずに提供するための専用機です。");
+    logic.push("<b>パスタあり</b> → 専用ボイラー。レンジの寸胴で代用もできますが、ピークでは差が出ます。"); }
+  if (f.fry) add("フライヤー", 1);
+  if (f.salamander) add("サラマンダー", 1, "グラタン・仕上げの焼き色付け用。");
+  if (f.sous_vide) add("真空包装機", 1, "低温調理・作り置きの仕込み用。");
+  if (f.wine) add("ワインセラー", 1);
+  if (f.dessert) add("小型冷凍ストッカー", 1);
+
+  const checklist = commonChecklist(ctx.gas, ctx.elec, ctx.commercial);
+  if (ctx.extra === "steam") checklist.push("スチームコンベクションオーブンは、三相200V・給水（軟水化が推奨される場合あり）・排水の3点セットが必要です。");
+  if (f.sous_vide) checklist.push("低温調理は加熱時間と温度の記録（HACCPの考え方を取り入れた衛生管理）が求められます。");
+  return finalize(items, ctx.storeArea, checklist, logic);
+},
+
+/* ---------------- テイクアウト ---------------- */
+"テイクアウト": (ctx) => {
+  const items = []; const add = mkAdder(items); const logic = [];
+  const f = ctx.flags, area = ctx.storeArea;
+
+  washSet(add, f, logic);
+  add("作業台", 1);
+  add("包装・盛付台", 1, "詰め・包装は調理と動線を分けたほうが衛生面でも速度でも有利です。");
+
+  if (area <= 20){ add("コールドテーブル1200", 1);
+    logic.push(`<b>${area}㎡</b>（客席が少ない業態のため、冷蔵は席数ではなく面積から判定）→ 台下冷蔵1台。`); }
+  else { add("コールドテーブル1200", 1); add("縦型冷凍冷蔵庫750", 1);
+    logic.push(`<b>${area}㎡</b> → 台下冷蔵＋縦型冷凍冷蔵庫。仕込みのストックを分けます。`); }
+
+  add("陳列ケース", 1, "商品の見せ方が売上に直結する業態です。");
+
+  if (ctx.extra === "fry"){ add("フライヤー", 2, "揚げ置きと揚げたてを分けるため、2槽を想定しています。");
+    logic.push("<b>揚げ物中心</b> → フライヤーは2槽構成。1槽だと油温が戻らずピークで詰まります。"); }
+  else if (f.fry) add("フライヤー", 1);
+
+  if (ctx.extra === "bento" || f.rice){
+    add("ガス炊飯器(5升)", 1, "弁当は炊飯量が売上の上限を決めます。");
+    add("洗米機", 1);
+    add("電子ジャー", 1);
+    logic.push("<b>弁当・ご飯もの</b> → 5升のガス炊飯＋洗米機。炊飯能力＝1日の販売可能数の上限です。");
+  }
+  if (ctx.extra === "sweets"){
+    add("コンベクションオーブン", 1);
+    add("小型冷凍ストッカー", 1, "冷凍生地のストック用。");
+    logic.push("<b>パン・スイーツ中心</b> → オーブン＋冷凍生地ストッカー。菓子製造業許可の確認が必要です。");
+  }
+  if (f.hot_case) add("ホットショーケース", 1, "温蔵陳列。時間管理（廃棄基準）の運用もセットで決めてください。");
+  if (f.grill) add("焼き台", 1);
+  if (f.vac) add("真空包装機", 1);
+  if (f.freezer_stock) add("小型冷凍ストッカー", 1);
+  if (f.drink){ add("ドリンクディスペンサー", 1); add("製氷機25kg", 1); }
+
+  const checklist = commonChecklist(ctx.gas, ctx.elec, ctx.commercial);
+  checklist.push("持ち帰り販売は、内容によって営業許可の区分が変わります（飲食店営業／そうざい製造業／菓子製造業など）。所轄保健所で必ず確認を。");
+  checklist.push("客席がなくても、手洗い設備・シンク・扉付き収納は許可の要件になります。");
+  if (f.hot_case) checklist.push("温蔵・冷蔵陳列は、温度帯（65℃以上／10℃以下）と販売時間の管理が求められます。");
+  return finalize(items, ctx.storeArea, checklist, logic);
+},
+
+/* ---------------- バー ---------------- */
+"バー": (ctx) => {
+  const items = []; const add = mkAdder(items); const logic = [];
+  const f = ctx.flags, seats = ctx.seats;
+
+  add("二槽シンク", 1, "洗い場用。保健所により三槽指定の場合があります。");
+  add("バーシンク", 1, "カウンター内の作業用シンク。洗い場とは別に必要です。");
+  add("手洗い器", 1, "保健所基準で必須の手洗い設備です。");
+  add("吊戸棚", 1);
+  add("グラスウォッシャー", 1, "バーの回転はグラス洗浄の速度で決まります。");
+  logic.push("<b>バー</b> → カウンター内のバーシンクと、洗い場の二槽シンクは別物として計上しています。");
+
+  const ice = iceName(seats, true);
+  add(f.ice_heavy ? "製氷機65kg" : ice, 1, "氷の質と量が商品力に直結する業態です。");
+  logic.push(f.ice_heavy
+    ? "<b>氷を大量に使う</b> → 製氷機は65kgクラス。氷切れは営業停止と同義です。"
+    : `製氷機は <b>${ice.replace("製氷機","")}</b>（酒類中心のため1段階アップで計算）。`);
+
+  add("カウンター冷蔵ショーケース", 1, "ボトル・ビールの冷却と見せ場を兼ねます。");
+  add("コールドテーブル1200", 1, "カウンター内の台下冷蔵。");
+
+  if (f.draft_beer) add("生ビールサーバー", 1);
+  if (f.wine) add("ワインセラー", 1);
+  if (ctx.extra === "dining"){
+    add("ガスレンジ", 1, "料理を出す前提のため、実質的に厨房が必要になります。");
+    add("縦型冷凍冷蔵庫750", 1);
+    add("作業台", 1);
+    logic.push("<b>ダイニングバー</b> → 実質的に厨房が要ります。ガスレンジ＋冷蔵の増設を計上。");
+  } else if (f.food){
+    add("卓上ガスコンロ2口", 1);
+    add("電子レンジ(業務用)", 1);
+    logic.push("<b>簡単なフード</b> → 卓上コンロ＋レンジ。カウンター内で完結する構成にしています。");
+  }
+  if (f.fry_light) add("卓上電気フライヤー", 1, "ガス工事が不要な卓上タイプ。カウンター内向けです。");
+  if (f.dessert) add("小型冷凍ストッカー", 1);
+  if (f.dishwasher) add("食器洗浄機", 1);
+
+  const checklist = commonChecklist(ctx.gas, ctx.elec, ctx.commercial);
+  checklist.push("深夜0時以降に酒類を提供する場合、所轄警察署への「深夜酒類提供飲食店営業開始届」が必要です（用途地域の制限あり）。");
+  checklist.push("接待を伴う営業を行う場合は、風営法の許可が別途必要になります。");
+  return finalize(items, ctx.storeArea, checklist, logic);
+},
+
+/* ---------------- 定食・食堂 ---------------- */
+"定食・食堂": (ctx) => {
+  const items = []; const add = mkAdder(items); const logic = [];
+  const f = ctx.flags, seats = ctx.seats;
+  const peak = ctx.extra || "m";
+
+  washSet(add, f, logic);
+  add("作業台", seats > 30 ? 2 : 1);
+  coldTier(add, seats, logic);
+  add(iceName(seats, !!f.draft_beer), 1);
+
+  if (peak === "l" || seats > 30){ add("ガスレンジ1200", 1, "ピークの同時調理数に対応するため間口を確保します。");
+    logic.push("<b>ピーク60食以上／30席超</b> → ガスレンジは1200mmへ。"); }
+  else add("ガスレンジ", 1);
+
+  if (peak === "s"){ add("炊飯器(業務用・1升)", 2);
+    logic.push("<b>ピーク〜30食</b> → 1升炊き2台。切らさず、かつ炊きたてを保てる構成。"); }
+  else if (peak === "m"){ add("炊飯器(業務用・3升)", 1); add("電子ジャー", 1);
+    logic.push("<b>ピーク〜60食</b> → 3升炊き＋保温ジャー。"); }
+  else { add("ガス炊飯器(5升)", 1); add("洗米機", 1); add("電子ジャー", 1);
+    logic.push("<b>ピーク60食以上</b> → 5升のガス炊飯＋洗米機。ここが詰まると全席が止まります。"); }
+
+  if (f.fry) add("フライヤー", peak === "l" ? 2 : 1);
+  if (f.grill_fish) add("魚焼きグリラー", 1, "定食の看板になる機器です。排気能力も合わせて確認を。");
+  if (f.steam) add("蒸し器", 1);
+  if (f.stirfry) add("中華レンジ", 1);
+  if (f.noodle) add("麺茹で機", 1);
+  if (f.draft_beer) add("生ビールサーバー", 1);
+  if (f.dessert) add("小型冷凍ストッカー", 1);
+
+  const checklist = commonChecklist(ctx.gas, ctx.elec, ctx.commercial);
+  checklist.push("ランチ営業の成否は、炊飯能力と食器洗浄の速度で決まります。席数と回転数から逆算して余裕を持たせてください。");
+  return finalize(items, ctx.storeArea, checklist, logic);
+},
+
+/* ---------------- その他 ---------------- */
+"その他": (ctx) => {
+  const items = []; const add = mkAdder(items); const logic = [];
+  const f = ctx.flags, seats = ctx.seats;
+
+  washSet(add, f, logic);
+  add("作業台", 1);
+  coldTier(add, seats, logic);
+  add(iceName(seats, false), 1);
+  add("ガスレンジ", 1, "業態が固まっていない場合の標準的な加熱設備です。");
+
+  Object.keys(MENU_MAP).forEach(k => {
+    if (f[k]) add(MENU_MAP[k], 1);
+  });
+  logic.push("業態未定のため、選択した調理内容から機器を積み上げています。業態が決まったら、該当の業態で再診断してください。");
+
+  const checklist = commonChecklist(ctx.gas, ctx.elec, ctx.commercial);
+  checklist.push("業態に応じた保健所の営業許可基準を満たしているか、事前相談をおすすめします。");
+  return finalize(items, ctx.storeArea, checklist, logic);
+}
+};
+
+function calcGeneric(bizType, ctx){
+  const fn = BIZ_CALC[bizType] || BIZ_CALC["その他"];
+  return fn(ctx);
+}
+
+/* =========================================================
+   設備条件（ガス種・容量／電気の引込・容量）
+   ========================================================= */
+let LAST_UTIL = null;
+
+function readUtil(){
+  const g   = document.getElementById("gas");
+  const gcU = document.getElementById("gasCapUnknown");
+  const gc  = document.getElementById("gasCap");
+  const eL  = document.getElementById("elecLight");
+  const eLu = document.getElementById("elecLightUnknown");
+  const eLk = document.getElementById("elecLightKw");
+  const eP  = document.getElementById("elecPower");
+  const ePu = document.getElementById("elecPowerUnknown");
+  const ePk = document.getElementById("elecPowerKw");
+  const eU  = document.getElementById("elecUnknown");
+
+  const num = el => { const v = parseFloat(el.value); return isNaN(v) || v <= 0 ? null : v; };
+  const elecUnknown = eU.checked;
+  const noGas = g.value === "なし";
+
+  return {
+    gas: g.value,
+    gasUnknown: !noGas && (gcU.checked || g.value === "不明"),
+    gasKw: (noGas || gcU.checked || g.value === "不明") ? null : num(gc),
+    elecUnknown,
+    light: elecUnknown ? false : eL.checked,
+    lightUnknown: eLu.checked,
+    lightKw: (elecUnknown || !eL.checked || eLu.checked) ? null : num(eLk),
+    power: elecUnknown ? false : eP.checked,
+    powerUnknown: ePu.checked,
+    powerKw: (elecUnknown || !eP.checked || ePu.checked) ? null : num(ePk)
+  };
+}
+
+function gasLabel(u){
+  if (!u) return "ガス不明";
+  if (u.gas === "なし") return "ガスなし（オール電化）";
+  if (u.gas === "不明") return "ガス種不明";
+  return u.gas + (u.gasKw ? `／${u.gasKw}kW` : "／容量不明");
+}
+
+function elecLabel(u){
+  if (!u || u.elecUnknown || (!u.light && !u.power)) return "電気の引込・容量ともに不明";
+  const p = [];
+  if (u.light) p.push("電灯" + (u.lightKw ? `${u.lightKw}kW` : "（容量不明）"));
+  if (u.power) p.push("三相200V" + (u.powerKw ? `${u.powerKw}kW` : "（容量不明）"));
+  return p.join("／");
+}
+
+/* =========================================================
+   三相200Vを前提とする機器の注意
+   実測4件（カフェ・喫茶）で、三相の容量を実際に押し上げていた機器。
+   ========================================================= */
+const THREE_PHASE_LIKELY = {
+"スチームコンベクションオーブン":"三相200V。実測ではこの1台で5.9〜20.2kW（50席の例では三相全体の96%）。",
+"コンベクションオーブン":"電気式は三相200Vの機種があります。ガス式なら電源は100Vで済みます。",
+"食器洗浄機":"ドアタイプは三相200Vの機種が主流（実測例で4.58kW）。アンダーカウンター型は単相の機種もあります。",
+"電磁調理器(卓上IH)":"三相200Vが主流。実測例では3口で9.0kW（3.0kW×3）。",
+"縦型冷凍冷蔵庫1200":"大型の縦型は三相の機種があります（実測例で0.639kW）。単相の機種も選べます。",
+"縦型冷凍庫1200":"大型の縦型は三相の機種があります。単相の機種も選べます。",
+"製氷機45kg":"能力の大きい機種は三相の設定があります。単相の機種も選べます。",
+"製氷機65kg":"能力の大きい機種は三相の設定があります。単相の機種も選べます。"
+};
+
+function threePhaseNoticeBlock(items){
+  const u = LAST_UTIL || {};
+  const hits = items.filter(i => THREE_PHASE_LIKELY[i.name]);
+  if (!hits.length) return "";
+
+  const li = hits.map(i => `<li><b>${i.name}</b>${i.qty>1?`×${i.qty}`:''}／${THREE_PHASE_LIKELY[i.name]}</li>`).join("");
+  const hasPower = !!u.power && !u.elecUnknown;
+
+  if (hasPower){
+    return `
+    <div class="tp-box ok">
+      <div class="tp-head">三相200Vを前提とする機器（${hits.length}点）</div>
+      <ul>${li}</ul>
+      <p class="tp-foot">
+        三相200Vの引込あり（${u.powerKw ? u.powerKw + "kW" : "容量は未確認"}）でご入力いただいています。
+        ${u.powerKw
+          ? `実測したカフェ4件の三相容量は5.2／11.1／20.1／21.1kWでした。${u.powerKw}kWで足りるかは、機器ごとの実消費量の積み上げでしか判定できません。`
+          : `契約容量を超えると機器が同時に動きません。契約前に電力会社・管理会社へご確認ください。`}
+      </p>
+    </div>`;
+  }
+
+  const gasAlt = (u.gas === "なし")
+    ? `ガスを使わない前提のため、加熱を電気に逃がす余地がありません。動力の引込が唯一の解になります。`
+    : `実測4件では、<b>ガスと三相200Vはトレードオフ</b>でした（ガス70.1kWの店は三相5.2kW、ガスなしの店は三相20.1kW）。動力の引込工事が難しい場合は、加熱をガス側の機器に振り替える構成を検討する余地があります。`;
+
+  return `
+  <div class="tp-box">
+    <div class="tp-head">三相200V（動力）の引込が要る可能性があります</div>
+    <ul>${li}</ul>
+    <p class="tp-foot">
+      ${u.elecUnknown ? "電気の引込が未確認のまま診断しています。" : "STEP4で三相200V（動力）にチェックが入っていません。"}
+      上の機器は動力を前提とする機種が主流です。引込がない物件では、この構成は<b>そのままでは成立しません</b>（引込工事は数十万円規模になることがあります）。
+      ${gasAlt}
+    </p>
+  </div>`;
+}
+
+/* =========================================================
+   実測リファレンスとの比較
+   ========================================================= */
+function refCaseBlock(biz, seats, storeArea, res){
+  if (biz !== "カフェ") return "";
+  const rows = REF_CASES.map(c => {
+    const me = c.seats === seats;
+    return `<tr style="${me?'background:#fbf3f1':''}">
+      <td style="padding:7px 6px;border-bottom:1px solid var(--line);white-space:nowrap"><b>${c.seats}席</b></td>
+      <td style="padding:7px 6px;border-bottom:1px solid var(--line);text-align:right">${c.rows}行／${c.units}台</td>
+      <td style="padding:7px 6px;border-bottom:1px solid var(--line);white-space:nowrap">${c.gas}</td>
+      <td style="padding:7px 6px;border-bottom:1px solid var(--line);text-align:right">${c.p200}</td>
+      <td style="padding:7px 6px;border-bottom:1px solid var(--line);text-align:right">${c.fp}㎡</td>
+    </tr>`;
+  }).join("");
+
+  const fps = REF_CASES.map(c => c.fp);
+  const lo = Math.min(...fps), hi = Math.max(...fps);
+  const inRange = res.footprint >= lo * 0.8 && res.footprint <= hi * 1.2;
+
+  return `
+  <div class="sec-title"><span class="no">■</span><h3 class="t">実際の設計図面との比較</h3></div>
+  <div class="logic-box">
+    <div class="lb-head">実測4件（カフェ・喫茶）</div>
+    <div class="ref-scroll">
+    <table class="ref-table">
+      <tr style="font-size:11px;color:var(--sub);text-align:left">
+        <th style="padding:6px;border-bottom:1px solid var(--ink)">席数</th>
+        <th style="padding:6px;border-bottom:1px solid var(--ink);text-align:right">機器点数</th>
+        <th style="padding:6px;border-bottom:1px solid var(--ink)">ガス</th>
+        <th style="padding:6px;border-bottom:1px solid var(--ink);text-align:right">三相kW</th>
+        <th style="padding:6px;border-bottom:1px solid var(--ink);text-align:right">機器の床面積</th>
+      </tr>
+      ${rows}
+      <tr style="background:#eef3f6">
+        <td style="padding:7px 6px;border-top:2px solid var(--flame)"><b>今回の診断</b><br><span style="font-size:11px;color:var(--sub)">${seats}席</span></td>
+        <td style="padding:7px 6px;border-top:2px solid var(--flame);text-align:right">${res.items.length}行／${res.items.reduce((s,i)=>s+i.qty,0)}台</td>
+        <td style="padding:7px 6px;border-top:2px solid var(--flame)">${gasLabel(LAST_UTIL)}</td>
+        <td style="padding:7px 6px;border-top:2px solid var(--flame);text-align:right">—</td>
+        <td style="padding:7px 6px;border-top:2px solid var(--flame);text-align:right">${res.footprint.toFixed(2)}㎡</td>
+      </tr>
+    </table>
+    </div>
+    <p style="font-size:12px;color:var(--sub);margin:12px 0 0;line-height:1.8">
+      この4件は、実際に作図された厨房の設計図面と機器リストです（各図面の合計欄と照合済み）。
+      <b>4件とも、席数と機器点数・電気容量・床面積が相関していません。</b>20席の店がいちばん機器が多く（35点）、40席がいちばん少ない（20点）。
+      決めているのは席数ではなく、<b>スチコンを置くか・コーヒー機器を何点持つか・仕込みをどこまで店内でやるか</b>でした。
+      ${inRange
+        ? `今回の診断結果（${res.footprint.toFixed(2)}㎡）は、実測の${lo}〜${hi}㎡のレンジに近い水準です。`
+        : `<b>今回の診断結果（${res.footprint.toFixed(2)}㎡）は、実測の${lo}〜${hi}㎡から外れています。</b>本ツールは水処理機器（軟水機・浄水器）や棚・テーブル類を計上していないため、実際の図面より少なめに出る傾向があります。`}
+      本ツールの席数による判定は目安としてお使いください。<b>確定させるには図面が要ります。</b>
+    </p>
+  </div>`;
+}
+
+/* =========================================================
+   図面・設備総容量リストの作成CTA
+   ※ ページが完成したら PLAN_CTA_URL にURLを入れるだけで
+      通常リンクとして機能します（空のままなら準備中の案内を表示）
+   ========================================================= */
+const PLAN_CTA_URL = "";
+
+function planCtaBlock(biz, seats, storeArea, res){
+  const u = LAST_UTIL || {};
+  const href = PLAN_CTA_URL || "#";
+  const attr = PLAN_CTA_URL ? 'target="_blank" rel="noopener"' : 'id="plan-cta-pending"';
+  return `
+  <a class="plan-cta" href="${href}" ${attr}>
+    <span class="pc-flag">無料・入力1分</span>
+    <div class="pc-title">この<em>${res.items.length}点</em>、<br>図面に落とすと本当に入りますか。</div>
+    <p class="pc-lead">
+      上の判定は、機器の寸法を足しただけの概算です。実際に置けるかどうかは、<b>間口・柱・通路幅・給排水とガスの位置</b>で決まります。
+      診断結果をそのまま引き継いで、厨房レイアウト図と設備総容量リストを作成します。
+    </p>
+    <ul class="pc-list">
+      <li><b>厨房レイアウト図</b>／選定した${res.items.length}点を実寸で配置し、通路幅と作業動線まで確認できます</li>
+      <li><b>設備総容量リスト</b>／ガス消費量（kW）と電気容量（単相／三相200V）を機器ごとに集計した一覧</li>
+      <li><b>引込・工事の要否判定</b>／ご入力の「${gasLabel(u)}」「${elecLabel(u)}」で足りるかを確認します</li>
+    </ul>
+    <span class="pc-btn">図面と設備総容量リストを作成する<i>→</i></span>
+    <span class="pc-note">入力済みの条件（${biz}／${seats}席／${storeArea}㎡）がそのまま引き継がれます。</span>
+  </a>`;
+}
+
+/* ---------- 診断根拠パネル ---------- */
+function logicBlock(biz, logic){
+  if (!logic || !logic.length) return "";
+  return `
+  <div class="logic-box">
+    <div class="lb-head">この構成になった理由（${biz}）</div>
+    <ul>${logic.map(l => `<li>${l}</li>`).join("")}</ul>
+  </div>`;
+}
+
+/* =========================================================
+   結果の描画
+   ========================================================= */
+let LAST_INPUT = null;
+
+function renderResult(biz, seats, storeArea, res, budget, usedMode, pref, city, hours){
+  const showUsed = usedMode !== "new";
+  const hasHall  = res.items.some(i => i.hall);
+  const total    = showUsed ? res.usedTotal : res.newTotal;
+  const budgetYen = budget * 10000;
+  const within   = total <= budgetYen;
+  const save     = res.newTotal - res.usedTotal;
+
+  /* ---- サマリー ---- */
+  const statHtml = `
+    <div class="stat-grid">
+      <div class="stat"><div class="l">新品でそろえた場合</div><div class="v">${man(res.newTotal)}</div></div>
+      <div class="stat"><div class="l">中古でそろえた場合</div><div class="v">${man(res.usedTotal)}</div></div>
+      <div class="stat save"><div class="l">中古にした場合の差額</div><div class="v">${man(save)}</div></div>
+    </div>
+    <div class="budget-note ${within ? '' : 'over'}">
+      ${within
+        ? `ご予算 <b>${budget}万円</b> に対して、${showUsed ? '中古中心' : '新品'}の構成で <b>${man(total)}</b>。予算内に収まる計算です（本体価格のみ。搬入・設置・工事費は別途）。`
+        : `ご予算 <b>${budget}万円</b> に対して、${showUsed ? '中古中心' : '新品'}の構成で <b>${man(total)}</b>。<b>約${man(total - budgetYen)}の超過</b>です。中古の活用、機器のダウンサイズ、優先度の低い機器の後回しをご検討ください。`}
+    </div>`;
+
+  /* ---- 機器一覧 ---- */
+  const catalog = biz === "ラーメン" ? RAMEN_CATALOG : CATALOG;
+  let eqHtml = "";
+  if (showUsed){
+    eqHtml += `<p class="thumb-note">※ 各機器のイメージ図は種別を示す参考用の図です。実際の製品形状とは異なります。</p>`;
+    eqHtml += siteSummaryBlock(res.items, catalog);
+    eqHtml += res.items.map(it => {
+      const p = catalog[it.name] || {new:100000, used:40000};
+      return equipmentBlock({name:it.name, qty:it.qty, note:it.note, hall:it.hall,
+        unitNew:p.new, unitUsed:p.used, showUsed:true});
+    }).join("");
+  } else {
+    eqHtml += `<div class="kk-list">`;
+    eqHtml += res.items.map(it => {
+      const p = catalog[it.name] || {new:100000, used:40000};
+      return equipmentBlock({name:it.name, qty:it.qty, note:it.note, hall:it.hall,
+        unitNew:p.new, unitUsed:p.used, showUsed:false});
+    }).join("");
+    eqHtml += totalRow(res.newTotal, res.usedTotal, false, res.items.length);
+    eqHtml += `</div>`;
+  }
+
+  /* ---- 面積判定 ---- */
+  let areaHtml = `
+    <div class="sec-title"><span class="no">■</span><h3 class="t">厨房面積と配置計画</h3></div>
+    ${res.feasible ?
+      `<div class="feasible-banner"><b>判定：合格</b> 厨房面積の目安は約 <b>${res.kitchenArea.toFixed(1)}㎡</b>。選定した厨房機器は無理なく配置できる計算です。</div>` :
+      `<div class="feasible-banner fail"><b>判定：設置面積過多の恐れあり</b> 厨房面積の想定（約${res.kitchenArea.toFixed(1)}㎡）に対して、選定した機器（総面積約${res.footprint.toFixed(2)}㎡）が多すぎる、または大きすぎます。席数を減らして厨房を広げるか、機器のダウンサイズを推奨します。</div>`
+    }
+    <div class="calc-breakdown">
+      <span>店舗面積: <b>${storeArea}㎡</b></span><span class="arrow">&gt;</span>
+      <span>厨房想定: <b>${res.kitchenArea.toFixed(1)}㎡</b></span><span class="arrow">&gt;</span>
+      <span>器具設置リミット: <b>${res.installLimit.toFixed(2)}㎡</b></span><span class="arrow">&gt;</span>
+      <span>機器必要床面積: <b style="${!res.feasible?'color:var(--price)':''}">${res.footprint.toFixed(2)}㎡</b></span>
+    </div>
+    ${hasHall ? `<div class="opt-note">※「客席側」と表示された機器は、厨房ではなくホールに設置されるため、上記の設置面積の計算からは除外しています。</div>` : ''}
+    <div class="opt-note">
+      ※ この判定は、機器の設置寸法の合計と厨房面積を機械的に比較した<b>参考値</b>です。実際の可否は、厨房の形状（間口・奥行き・柱・梁）、通路幅、扉や機器の開き代、給排水・ガス・電気の取り出し位置、作業動線、消防・保健所の指導によって変わります。<b>「配置可能」と表示された場合でも、図面上で配置できないことがあります。</b>逆に「配置注意」でも、機器の入れ替えやレイアウトの工夫で収まる場合があります。
+    </div>
+    ${planCtaBlock(biz, seats, storeArea, res)}
+  `;
+
+  /* ---- 根拠・チェックリスト ---- */
+  const logicHtml = `
+    <div class="sec-title"><span class="no">■</span><h3 class="t">診断の根拠</h3></div>
+    ${logicBlock(biz, res.logic)}
+    ${threePhaseNoticeBlock(res.items)}
+    ${refCaseBlock(biz, seats, storeArea, res)}`;
+
+  const checkHtml = `
+    <div class="sec-title"><span class="no">■</span><h3 class="t">法令・確認事項のチェックリスト</h3></div>
+    <ul class="checklist">${res.checklist.map(c => `<li>${c}</li>`).join("")}</ul>`;
+
+  /* ---- テナント ---- */
+  const tenants = buildTenants(pref, city, storeArea, biz);
+  const tenantHtml = tenantSliderBlock(pref, city, biz, storeArea, tenants);
+
+  /* ---- 送客フォーム ---- */
+  const elecVal = elecLabel(LAST_UTIL);
+  const gasVal  = gasLabel(LAST_UTIL);
+  const matchHtml = `
+  <div class="match-section" id="match-section">
+    <div class="match-title">開業準備を、プロに一括相談する</div>
+    <p class="match-sub">
+      診断結果（${biz}／${seats}席／${storeArea}㎡／${gasVal}／${elecVal}）をそのまま引き継いで、専門業者に無料で相談できます。<br>
+      必要な項目だけ選んでください。
+    </p>
+    <div class="ad-disclosure">※ こちらは提携先の事業者をご紹介するサービスです。ご相談は無料ですが、当サイトは紹介手数料を受け取る場合があります。</div>
+    <div class="match-options">
+      <label class="match-option-card">
+        <input type="checkbox" id="m-equip" checked>
+        <div class="match-option-text">
+          <div class="opt-title">厨房機器の見積もり（新品・中古）</div>
+          <div class="opt-desc">診断で選定した${res.items.length}点の構成をもとに、実売価格の見積もりを取ります。</div>
+        </div>
+      </label>
+      <label class="match-option-card">
+        <input type="checkbox" id="m-plan">
+        <div class="match-option-text">
+          <div class="opt-title">厨房レイアウト図・設備総容量リストの作成</div>
+          <div class="opt-desc">選定機器を実寸で配置した図面と、ガス・電気の容量の集計リストを作成します。</div>
+        </div>
+      </label>
+      <label class="match-option-card">
+        <input type="checkbox" id="m-tenant">
+        <div class="match-option-text">
+          <div class="opt-title">テナント・居抜き物件の紹介</div>
+          <div class="opt-desc">${pref && city ? `${pref}${city}周辺` : 'ご希望のエリア'}で、この業態に合う物件を探します。</div>
+        </div>
+      </label>
+      <label class="match-option-card">
+        <input type="checkbox" id="m-fund">
+        <div class="match-option-text">
+          <div class="opt-title">開業資金・融資の相談</div>
+          <div class="opt-desc">日本政策金融公庫の創業融資や、補助金の活用について相談できます。</div>
+        </div>
+      </label>
+    </div>
+    <div class="match-form-fields">
+      <div class="grid2">
+        <div class="field"><label>お名前</label><input type="text" id="m-name" placeholder="山田 太郎"></div>
+        <div class="field"><label>電話番号</label><input type="tel" id="m-tel" placeholder="09012345678"></div>
+      </div>
+      <div class="field"><label>メールアドレス</label><input type="email" id="m-mail" placeholder="you@example.com"></div>
+      <div class="field"><label>ご希望・ご質問（任意）</label><input type="text" id="m-note" placeholder="開業予定時期、気になっている点など"></div>
+      <button class="btn" id="m-submit">無料で一括相談する</button>
+      <p class="pc-note">送信内容は、選択いただいた項目の提携事業者にのみ共有されます。</p>
+    </div>
+  </div>`;
+
+  const html = `
+    <div class="result-head">
+      <div class="tag">${biz}／${seats}席／${storeArea}㎡${pref && city ? `／${pref}${city}` : ''}</div>
+      <h2>診断結果</h2>
+    </div>
+    ${statHtml}
+    <div class="sec-title"><span class="no">■</span><h3 class="t">必要な厨房機器（${res.items.length}点）</h3></div>
+    ${eqHtml}
+    ${areaHtml}
+    ${logicHtml}
+    ${checkHtml}
+    ${tenantHtml}
+    ${matchHtml}
+    <div class="disclaimer">
+      表示金額は代表的な機種の相場に基づく概算です（本体価格のみ）。搬入・設置・ガス／電気／給排水の工事費、什器・内装費は含みません。
+      各サイトの価格・在庫は変動します。法令に関する記載は一般的な目安であり、最終的な判断は所轄の保健所・消防署にご確認ください。
+    </div>
+    <div class="nav-row" style="margin-top:24px">
+      <button class="btn ghost" onclick="window.resetForm()">条件を変えて再診断</button>
+      <span></span>
+    </div>
+  `;
+
+  const rv = document.getElementById("result-view");
+  document.getElementById("form-view").style.display = "none";
+  rv.style.display = "block";
+  rv.innerHTML = html;
+  document.getElementById("form-card").scrollIntoView({behavior:"smooth", block:"start"});
+
+  /* ---- スライダーの制御 ---- */
+  const slider = document.getElementById("tenant-slider");
+  if (slider){
+    const step = 276;
+    document.getElementById("slide-prev")?.addEventListener("click", () => slider.scrollBy({left:-step, behavior:"smooth"}));
+    document.getElementById("slide-next")?.addEventListener("click", () => slider.scrollBy({left: step, behavior:"smooth"}));
+  }
+
+  /* ---- 図面CTA（リンク先の準備中の暫定動作） ---- */
+  const pcp = document.getElementById("plan-cta-pending");
+  if (pcp){
+    pcp.addEventListener("click", (e) => {
+      e.preventDefault();
+      alert("図面・設備総容量リストの作成ページは現在準備中です。\n公開までの間は、下の「開業準備をプロに一括相談する」からご依頼いただけます。");
+      document.querySelector(".match-section")?.scrollIntoView({behavior:"smooth", block:"start"});
+    });
+  }
+
+  /* ---- 送客フォーム ---- */
+  document.getElementById("m-submit")?.addEventListener("click", handleMatchingSubmit);
+}
+
+function handleMatchingSubmit(){
+  const picks = [
+    ["m-equip","厨房機器の見積もり"],
+    ["m-plan","厨房レイアウト図・設備総容量リストの作成"],
+    ["m-tenant","テナント・居抜き物件の紹介"],
+    ["m-fund","開業資金・融資の相談"]
+  ].filter(([id]) => document.getElementById(id)?.checked).map(([,l]) => l);
+
+  const name = document.getElementById("m-name").value.trim();
+  const tel  = document.getElementById("m-tel").value.trim();
+  const mail = document.getElementById("m-mail").value.trim();
+
+  if (!picks.length){ alert("ご相談されたい項目を1つ以上選択してください。"); return; }
+  if (!name){ alert("お名前をご入力ください。"); return; }
+  if (!tel && !mail){ alert("電話番号またはメールアドレスのいずれかをご入力ください。"); return; }
+
+  alert("送信のデモです。実際の送信先（フォームのPOST先）はまだ設定されていません。\n\n【選択項目】\n・" + picks.join("\n・"));
+}
+
+/* =========================================================
+   フォームの制御
+   ========================================================= */
+window.resetForm = function(){
+  document.getElementById("result-view").style.display = "none";
+  document.getElementById("form-view").style.display = "block";
+  document.getElementById("form-card").scrollIntoView({behavior:"smooth", block:"start"});
+};
+
+/* 席数から延床の目安を出す。
+   根拠は実測1件（40席カフェ：延床101.4㎡ ＝ 1席あたり2.54㎡。
+   内訳は客室66.86㎡＋カウンターホール18.21㎡＋厨房11.38㎡＋風除室4.96㎡）。
+   レンジの下限2.0は一般的な目安であり、実測の裏づけはない。 */
+function syncAreaHint(){
+  const seats = Math.max(0, Number(document.getElementById("seats").value) || 0);
+  const area  = Math.max(1, Number(document.getElementById("storeArea").value) || 0);
+  const el = document.getElementById("area-hint");
+  if (!el) return;
+  if (!seats){ el.innerHTML = "厨房面積は入力値の1/3として概算します。"; return; }
+
+  const lo = Math.round(seats * 2.0), hi = Math.round(seats * 3.0);
+  const per = (area / seats).toFixed(2);
+  let judge = "";
+  if (area < lo) judge = `<b style="color:var(--price)">入力値は目安より狭めです（1席あたり${per}㎡）。</b>厨房が確保できず、席数を減らす判断が必要になる可能性があります。`;
+  else if (area > hi) judge = `1席あたり${per}㎡と、目安より余裕のある設定です。`;
+  else judge = `1席あたり${per}㎡。目安の範囲内です。`;
+
+  el.innerHTML = `${seats}席なら<b>${lo}〜${hi}㎡</b>が目安です（実際の設計図面では、40席のカフェが延床101.4㎡＝1席あたり2.54㎡でした）。${judge}<br>厨房面積は入力値の1/3として概算します。`;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* ---- 都道府県・市区町村 ---- */
+  const prefSel = document.getElementById("pref");
+  const citySel = document.getElementById("city");
+  Object.keys(PREF_CITIES).forEach(p => {
+    const o = document.createElement("option"); o.value = p; o.textContent = p; prefSel.appendChild(o);
+  });
+  prefSel.addEventListener("change", () => {
+    const p = prefSel.value;
+    citySel.innerHTML = "";
+    if (!p){
+      citySel.disabled = true;
+      citySel.innerHTML = '<option value="">都道府県を先に選択</option>';
+      return;
+    }
+    citySel.disabled = false;
+    const head = document.createElement("option");
+    head.value = ""; head.textContent = "選択してください";
+    citySel.appendChild(head);
+    PREF_CITIES[p].forEach(c => {
+      const o = document.createElement("option"); o.value = c; o.textContent = c; citySel.appendChild(o);
+    });
+  });
+
+  /* ---- 業態にあわせて STEP3 を切り替え ---- */
+  const bizSelect  = document.getElementById("biz");
+  const chipsBox   = document.getElementById("menu-flags");
+  const extraField = document.getElementById("menu-field-extra");
+  const extraSel   = document.getElementById("extraSel");
+
+  function applyBiz(){
+    const b = bizSelect.value;
+    const meta = BIZ_META[b] || BIZ_META["その他"];
+    document.getElementById("biz-hint").textContent   = meta.hint;
+    document.getElementById("seats-hint").textContent = meta.seatHint;
+    document.getElementById("menu-lead").textContent  = meta.menuLead;
+    document.getElementById("menu-hint").textContent  = meta.menuHint || "";
+
+    const isRamen = b === "ラーメン";
+    document.getElementById("menu-field-ramen").style.display  = isRamen ? "" : "none";
+    document.getElementById("ramen-chips-field").style.display = isRamen ? "" : "none";
+    document.getElementById("menu-field-generic").style.display = isRamen ? "none" : "";
+
+    const ex = BIZ_EXTRA[b];
+    if (ex && !isRamen){
+      extraField.style.display = "";
+      document.getElementById("extra-label").textContent = ex.label;
+      document.getElementById("extra-hint").textContent  = ex.hint;
+      extraSel.innerHTML = ex.options.map(([v,l]) => `<option value="${v}">${l}</option>`).join("");
+    } else {
+      extraField.style.display = "none";
+      extraSel.innerHTML = "";
+    }
+
+    if (!isRamen){
+      const chips = BIZ_CHIPS[b] || BIZ_CHIPS["その他"];
+      chipsBox.innerHTML = chips.map(c =>
+        `<label class="chip"><input type="checkbox" value="${c.v}" ${c.d ? "checked" : ""}>${c.l}</label>`
+      ).join("");
+    } else {
+      chipsBox.innerHTML = "";
+    }
+  }
+  bizSelect.addEventListener("change", applyBiz);
+  applyBiz();
+
+  /* ---- 席数→面積の目安 ---- */
+  ["seats","storeArea"].forEach(id =>
+    document.getElementById(id).addEventListener("input", syncAreaHint));
+  syncAreaHint();
+
+  /* ---- 設備条件の入力欄の連動 ---- */
+  const bind = (id, fn) => document.getElementById(id).addEventListener("change", fn);
+  const gasCap = document.getElementById("gasCap");
+  const syncUtil = () => {
+    const gasVal = document.getElementById("gas").value;
+    const gasNa = document.getElementById("gasCapUnknown").checked || gasVal === "不明" || gasVal === "なし";
+    gasCap.disabled = gasNa;
+    if (gasNa) gasCap.value = "";
+    document.getElementById("gasCapUnknown").disabled = (gasVal === "なし");
+
+    const allNa = document.getElementById("elecUnknown").checked;
+    ["elecLight","elecPower"].forEach(id => { document.getElementById(id).disabled = allNa; });
+
+    const rows = [["elecLight","elecLightCap","elecLightUnknown","elecLightKw"],
+                  ["elecPower","elecPowerCap","elecPowerUnknown","elecPowerKw"]];
+    rows.forEach(([chk, row, unk, kw]) => {
+      const on = document.getElementById(chk).checked && !allNa;
+      document.getElementById(row).hidden = !on;
+      const na = document.getElementById(unk).checked;
+      const k = document.getElementById(kw);
+      k.disabled = na;
+      if (na) k.value = "";
+    });
+  };
+  ["gas","gasCapUnknown","elecLight","elecLightUnknown","elecPower","elecPowerUnknown","elecUnknown"].forEach(id => bind(id, syncUtil));
+  document.getElementById("elecUnknown").addEventListener("change", e => {
+    if (e.target.checked){
+      document.getElementById("elecLight").checked = false;
+      document.getElementById("elecPower").checked = false;
+      syncUtil();
+    }
+  });
+  ["elecLight","elecPower"].forEach(id => document.getElementById(id).addEventListener("change", e => {
+    if (e.target.checked) document.getElementById("elecUnknown").checked = false;
+    syncUtil();
+  }));
+  syncUtil();
+
+  /* ---- ステップ移動 ---- */
+  const TOTAL = 5;
+  let cur = 1;
+  function updateStepUI(){
+    document.getElementById("step-no").textContent = `STEP ${cur} / ${TOTAL}`;
+    const remain = TOTAL - cur;
+    document.getElementById("step-remain").textContent = remain > 0 ? `残り${remain}ステップ` : "最後のステップです";
+    document.getElementById("step-bar").style.width = `${cur / TOTAL * 100}%`;
+  }
+  function goStep(n){
+    cur = n;
+    document.querySelectorAll(".step").forEach(s => {
+      s.style.display = Number(s.dataset.step) === n ? "" : "none";
+    });
+    updateStepUI();
+    document.getElementById("form-card").scrollIntoView({behavior:"smooth", block:"start"});
+  }
+  document.querySelectorAll("[data-next]").forEach(b =>
+    b.addEventListener("click", () => goStep(Number(b.dataset.next))));
+  document.querySelectorAll("[data-prev]").forEach(b =>
+    b.addEventListener("click", () => goStep(Number(b.dataset.prev))));
+  updateStepUI();
+
+  /* ---- 診断の実行 ---- */
+  document.getElementById("run-btn").addEventListener("click", () => {
+    const biz       = bizSelect.value;
+    const storeArea = Math.max(1, Number(document.getElementById("storeArea").value) || 30);
+    const seats     = Math.max(0, Number(document.getElementById("seats").value) || 0);
+    const hours     = document.getElementById("hours").value;
+    const budget    = Number(document.getElementById("budget").value);
+    const usedMode  = document.getElementById("used").value;
+    const pref      = prefSel.value;
+    const city      = citySel.value;
+    const commercial = document.getElementById("commercial").checked;
+
+    LAST_UTIL  = readUtil();
+    const gas  = gasLabel(LAST_UTIL);
+    const elec = elecLabel(LAST_UTIL);
+
+    const flags = {};
+    const scope = biz === "ラーメン" ? "#menu-flags-ramen" : "#menu-flags";
+    document.querySelectorAll(`${scope} input[type=checkbox]`).forEach(c => {
+      if (c.checked) flags[c.value] = true;
+    });
+
+    let res;
+    if (biz === "ラーメン"){
+      const soupSource = document.getElementById("soupSource").value;
+      res = calcRamen(seats, storeArea, soupSource, flags, commercial, budget, usedMode, gas, elec);
+    } else {
+      const extra = extraSel.value || null;
+      res = calcGeneric(biz, {seats, storeArea, flags, extra, commercial, budget, usedMode, gas, elec, hours});
+    }
+
+    LAST_INPUT = {biz, seats, storeArea, budget, usedMode, pref, city, hours};
+    renderResult(biz, seats, storeArea, res, budget, usedMode, pref, city, hours);
+  });
+});
+</script>
+<script src="./assets/articles.js"></script>
+<script src="./assets/articles-render.js"></script>
+</body>
+</html>
